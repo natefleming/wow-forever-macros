@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Orc Warlock macros — WoW: Forever</title>
+<title>Warlock macros — WoW: Forever</title>
 <style>
 :root {
   --bg: #16111c; --panel: #201829; --line: #33283f; --ink: #e9e2ee; --muted: #a095ae;
@@ -15,13 +15,15 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
 a { color: var(--accent); }
+code { font: 0.9em var(--mono); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
 header.hero { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
 .hero .switch { font-size: 14px; color: var(--muted); }
-.hero h1 { font: 600 clamp(40px, 7vw, 76px)/1.02 var(--serif); margin: 12px 0 10px; letter-spacing: -0.01em; }
+.hero h1 { font: 600 clamp(40px, 7vw, 76px)/1.02 var(--serif); margin: 12px 0 6px; letter-spacing: -0.01em; }
 .hero h1 .glyph { color: var(--accent); font-weight: 400; margin-right: 0.2em; }
+.hero .races { color: var(--accent); font-size: 16px; margin: 0 0 10px; }
 .hero p.lede { max-width: 62ch; color: var(--muted); font-size: 18px; margin: 0 0 28px; }
 
 .keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
@@ -33,13 +35,14 @@ header.hero { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
 .keys .k span:last-child { font-size: 15px; }
 .setup { margin: 26px 0 0; padding: 14px 18px; border-left: 3px solid var(--accent); background: var(--panel);
   max-width: 80ch; font-size: 15px; }
-code { font: 0.9em var(--mono); }
 .setup ul { margin: 6px 0 0; padding-left: 18px; }
 
 .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
 .bar .wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
-.bar input { flex: 1 1 220px; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+.bar input[type=search] { flex: 1 1 220px; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
   border-radius: 8px; padding: 9px 12px; font: inherit; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chips .lbl { font-size: 13px; color: var(--muted); margin-right: 2px; }
 .bar button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px;
   padding: 7px 14px; font: 500 14px var(--sans); cursor: pointer; }
 .bar button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
@@ -47,9 +50,29 @@ code { font: 0.9em var(--mono); }
 .bar nav a { color: var(--muted); text-decoration: none; }
 .bar nav a:hover { color: var(--accent); }
 
-section { padding: 36px 0 8px; scroll-margin-top: 120px; }
+.dl { margin: 28px 0 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.dl summary { cursor: pointer; padding: 16px 20px; font: 600 20px var(--serif); }
+.dl summary small { font: 400 14px var(--sans); color: var(--muted); margin-left: 8px; }
+.dl .body { padding: 0 20px 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+.dl fieldset { border: 0; padding: 0; margin: 0 0 14px; }
+.dl legend { font-weight: 600; margin-bottom: 6px; }
+.dl label { display: block; margin: 4px 0; }
+.dl .hint { color: var(--muted); font-size: 14px; margin: 2px 0 0 24px; }
+.dl .row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+.dl button { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 8px; padding: 10px 16px;
+  font: 600 15px var(--sans); cursor: pointer; }
+.dl button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.dl ol { margin: 0; padding-left: 20px; font-size: 15px; }
+.dl ol li { margin-bottom: 8px; }
+#dl-status { font-size: 14px; margin: 8px 0 0; white-space: pre-line; }
+#dl-status.warn { color: var(--warn); }
+@media (max-width: 760px) { .dl .body { grid-template-columns: 1fr; } }
+
+section { padding: 36px 0 8px; scroll-margin-top: 140px; }
 section h2 { font: 600 30px/1.2 var(--serif); margin: 0 0 18px; }
-section h2 small { font: 400 15px var(--sans); color: var(--muted); margin-left: 10px; }
+section h2 small, .race-group h3 small { font: 400 15px var(--sans); color: var(--muted); margin-left: 10px; }
+.race-group { margin: 0 0 26px; }
+.race-group h3 { font: 600 22px var(--serif); color: var(--accent); margin: 0 0 12px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 18px; }
 
 article { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px;
@@ -59,7 +82,7 @@ article h3 { font: 600 20px/1.25 var(--serif); margin: 0; }
 .tag { font-size: 12px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .tag.pvp { color: #f0a5a5; border-color: #6b3a3a; }
 .tag.pve { color: #9fc4f0; border-color: #33506e; }
-.tag.talent { color: var(--accent); border-color: var(--accent); }
+.tag.talent, .tag.race { color: var(--accent); border-color: var(--accent); }
 article p { margin: 0; color: var(--muted); max-width: 70ch; }
 dl.mods { display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; margin: 2px 0; font-size: 14px; align-items: baseline; }
 dl.mods dt { margin: 0; } dl.mods dd { margin: 0; }
@@ -68,7 +91,8 @@ pre { margin: 0; background: rgba(0,0,0,0.35); border: 1px solid var(--line); bo
   padding: 14px 16px; font: 13.5px/1.6 var(--mono); white-space: pre-wrap; word-break: break-word; color: var(--ink); }
 .copy { position: absolute; top: 8px; right: 8px; background: var(--accent); color: var(--accent-ink); border: 0;
   border-radius: 6px; padding: 5px 12px; font: 600 13px var(--sans); cursor: pointer; }
-.foot { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.foot { display: flex; justify-content: space-between; gap: 6px 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.foot label { color: var(--ink); cursor: pointer; }
 .count.over { color: #ff7b7b; font-weight: 600; }
 .status.ok { color: var(--accent); }
 .status.verify { color: var(--warn); }
@@ -82,9 +106,10 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
 <body>
 <header class="hero">
   <div class="wrap">
-    <div class="switch"><a href="index.html">All characters</a>. Also: <a href="priest.html">Undead Priest</a>, <a href="druid.html">Tauren Druid</a>, <a href="mage.html">Orc Mage</a></div>
-    <h1><span class="glyph" aria-hidden="true">⛧</span>Orc Warlock</h1>
-    <p class="lede">Orgrimmar demon-binder. Every pet on one key, every curse on your focus, and Blood Fury that never sits idle.</p>
+    <div class="switch"><a href="index.html">All pages</a>. Also: <a href="general.html">All characters</a>, <a href="warrior.html">Warrior</a>, <a href="paladin.html">Paladin</a>, <a href="hunter.html">Hunter</a>, <a href="rogue.html">Rogue</a>, <a href="priest.html">Priest</a>, <a href="shaman.html">Shaman</a>, <a href="mage.html">Mage</a>, <a href="druid.html">Druid</a></div>
+    <h1><span class="glyph" aria-hidden="true">⛧</span>Warlock</h1>
+    <p class="races">Horde: Orc, Undead, Troll</p>
+    <p class="lede">Every pet on one key, every curse on your focus, and sacrifice-and-resummon buttons.</p>
     <div class="keys" aria-label="Modifier conventions">
       <div class="k"><span class="cap">Click</span><span>Your target, or what's under your mouse</span></div>
       <div class="k"><span class="cap">Shift</span><span>Your focus target</span></div>
@@ -94,84 +119,85 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     <div class="setup">
       Before you start:
       <ul>
-        <li>Turn on the focus frame: Esc → Edit Mode → Focus Frame. Set focus with the <a href="#set-focus">Set focus</a> macro.</li>
+        <li>Turn on the focus frame: Esc → Edit Mode → Focus Frame. Set focus with the <a href="general.html#set-focus">Set focus</a> macro.</li>
         <li>Put your PvP trinket in the top trinket slot (13). Macros use the slot, so they keep working when you upgrade it.</li>
-        <li>Paste into Esc → Macros, then pick the question-mark icon so the button shows the spell it will cast.</li>
-        <li>Shortcuts: spell names have no abbreviations, but commands do. <code>/spell</code> is <code>/cast</code>, <code>/tar</code> is <code>/target</code>, <code>/a</code> is <code>/assist</code>, <code>/script</code> is <code>/run</code>. Use them when a macro is near 255 characters. <code>/cast !Shadowform</code> never toggles a form off, and <code>/use item:12345</code> uses an item by ID if its name changes.</li>
+        <li>Copy single macros into Esc → Macros, or download a whole set as a macro file below. Pick the question-mark icon so the button shows the spell it will cast.</li>
+        <li>Shortcuts: spell names have no abbreviations, but commands do. <code>/spell</code> is <code>/cast</code>, <code>/tar</code> is <code>/target</code>, <code>/a</code> is <code>/assist</code>, <code>/script</code> is <code>/run</code>. <code>/cast !Shadowform</code> never toggles a form off, and <code>/use item:12345</code> uses an item by ID if its name changes.</li>
         <li>Spells and names are from the Forever beta (October 2026). Cards marked <em>check in-game</em> have one detail to confirm at launch.</li>
       </ul>
     </div>
+    <details class="dl" id="download">
+      <summary>Download as a WoW macro file <small id="dl-count"></small></summary>
+      <div class="body">
+        <div>
+          <fieldset>
+            <legend>Where should these macros go?</legend>
+            <label><input type="radio" name="scope" value="character" checked> This character only</label>
+            <p class="hint">The per-character tab. Classic clients allow 18 here; Forever's limit isn't confirmed.</p>
+            <label><input type="radio" name="scope" value="account"> All characters (General tab)</label>
+            <p class="hint">The account-wide tab, up to 120 macros, shared by every character.</p>
+          </fieldset>
+          <fieldset>
+            <legend>Keep your existing macros (optional)</legend>
+            <label>Your current macros-cache.txt: <input type="file" id="merge" accept=".txt,text/plain"></label>
+            <p class="hint">Pick the file you're replacing and the download keeps everything in it, adding these macros after. Without it, the download replaces all macros in that tab.</p>
+          </fieldset>
+          <p>Only macros that are showing and ticked are included. Use the race and PvP/PvE filters above, or untick cards you don't want.</p>
+          <div class="row">
+            <button type="button" id="dl-go">Download macros-cache.txt</button>
+            <button type="button" class="ghost" id="sel-all">Tick all</button>
+            <button type="button" class="ghost" id="sel-none">Untick all</button>
+          </div>
+          <p id="dl-status" role="status"></p>
+        </div>
+        <div>
+          <strong>Install the file</strong>
+          <ol>
+            <li>In game, type <code>/console synchronizeMacros 0</code>. Otherwise Blizzard's server copy of your macros can overwrite the file when you log in. Then exit WoW completely.</li>
+            <li>Open your Forever game folder (in the beta it's <code>_classic_beta_</code>):<br>
+              Windows: <code>C:\Program Files (x86)\World of Warcraft\_classic_beta_\</code><br>
+              Mac: <code>/Applications/World of Warcraft/_classic_beta_/</code></li>
+            <li>Go to <code>WTF/Account/&lt;your account&gt;/</code>. For <em>All characters</em>, the file goes right there. For <em>This character only</em>, go on into <code>&lt;Realm&gt;/&lt;Character&gt;/</code>. The folders appear after you've logged in once.</li>
+            <li>Rename the old <code>macros-cache.txt</code> to <code>macros-cache.bak</code> as a backup, then copy the downloaded file in.</li>
+            <li>Start WoW and type <code>/macro</code> to check they're there. Drag them onto your bars. You can turn sync back on with <code>/console synchronizeMacros 1</code>.</li>
+          </ol>
+        </div>
+      </div>
+    </details>
   </div>
 </header>
 <div class="bar">
   <div class="wrap">
     <input id="q" type="search" placeholder="Search macros or spells" aria-label="Search macros">
-    <button data-f="all" aria-pressed="true">All</button>
-    <button data-f="PvP" aria-pressed="false">PvP</button>
-    <button data-f="PvE" aria-pressed="false">PvE</button>
-    <button data-f="verify" aria-pressed="false">Check in-game</button>
+    <div class="chips" id="tag-chips">
+      <button data-f="all" aria-pressed="true">All</button>
+      <button data-f="PvP" aria-pressed="false">PvP</button>
+      <button data-f="PvE" aria-pressed="false">PvE</button>
+      <button data-f="verify" aria-pressed="false">Check in-game</button>
+    </div>
+    <div class="chips" id="race-chips" hidden><span class="lbl">Race</span></div>
     <nav id="toc" aria-label="Sections"></nav>
   </div>
 </div>
 <main class="wrap" id="main"></main>
 <footer><div class="wrap">Every macro is checked for the 255-character limit, valid commands and conditionals, and spell names from the Forever beta spellbook. Cards marked check in-game depend on something the beta hasn't settled.</div></footer>
 <script type="application/json" id="macro-data">{
+ "page": "warlock",
+ "races": [
+  "Orc",
+  "Undead",
+  "Troll"
+ ],
  "sections": [
-  "Focus & utility",
   "Pets",
   "Curses & banes",
   "Control",
-  "Damage (auto Blood Fury)",
+  "Damage",
   "Sacrifice & summon",
-  "Survival"
+  "Survival",
+  "Racials"
  ],
  "macros": [
-  {
-   "id": "set-focus",
-   "title": "Set focus",
-   "section": "Focus & utility",
-   "tags": [
-    "PvP",
-    "PvE"
-   ],
-   "desc": "One button to manage your focus. Bind it somewhere easy — most of the other macros read from it.",
-   "mods": [
-    [
-     "Click",
-     "Focus your mouseover, else your target"
-    ],
-    [
-     "Shift",
-     "Target your focus"
-    ],
-    [
-     "Alt",
-     "Clear focus"
-    ]
-   ],
-   "text": "/clearfocus [mod:alt]\n/stopmacro [mod:alt]\n/target [mod:shift] focus\n/stopmacro [mod:shift]\n/focus [@mouseover,exists][]",
-   "status": "ok",
-   "note": ""
-  },
-  {
-   "id": "assist-focus",
-   "title": "Assist focus",
-   "section": "Focus & utility",
-   "tags": [
-    "PvP",
-    "PvE"
-   ],
-   "desc": "Target whatever your focus is targeting. Focus your tank or a teammate and pick up their kill target.",
-   "mods": [
-    [
-     "Click",
-     "Take your focus's target"
-    ]
-   ],
-   "text": "/assist [@focus,exists]",
-   "status": "ok",
-   "note": ""
-  },
   {
    "id": "pet-special",
    "title": "Pet special (every demon)",
@@ -193,7 +219,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [pet:Succubus/Incubus,@focus,mod:shift,harm][pet:Succubus/Incubus] Seduction; [pet:Felhunter,@focus,mod:shift,harm][pet:Felhunter] Spell Lock; [pet:Voidwalker] Sacrifice; [pet:Imp] Phase Shift",
    "status": "verify",
-   "note": "Confirm [pet:Incubus] matches the new Incubus in-game. If it doesn't, replace Incubus with your demon's name."
+   "note": "Confirm [pet:Incubus] matches the new Incubus in-game. If it doesn't, replace Incubus with your demon's name.",
+   "race": null,
+   "name": "Pet Special"
   },
   {
    "id": "pet-utility",
@@ -216,7 +244,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [pet:Felhunter,@focus,mod:shift,exists][pet:Felhunter,@mouseover,exists][pet:Felhunter,exists][pet:Felhunter,@player] Devour Magic; [pet:Imp,help][pet:Imp,@player] Fire Shield; [pet:Voidwalker] Suffering; [pet] Soothing Kiss",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Pet Utility"
   },
   {
    "id": "pet-attack",
@@ -247,7 +277,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "/petfollow [mod:ctrl]\n/petpassive [mod:alt]\n/stopmacro [mod:ctrl][mod:alt]\n/petattack [@focus,mod:shift,harm,nodead][]\n/cast [pet:Voidwalker,@focus,mod:shift,harm][pet:Voidwalker] Torment",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Pet Attack"
   },
   {
    "id": "tongues",
@@ -270,7 +302,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Curse of Tongues",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Tongues"
   },
   {
    "id": "exhaustion",
@@ -297,7 +331,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip Curse of Exhaustion\n/cast [mod:ctrl] Amplify Curse\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Curse of Exhaustion",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Exhaustion"
   },
   {
    "id": "weakness",
@@ -320,7 +356,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Curse of Weakness",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Weakness"
   },
   {
    "id": "recklessness",
@@ -343,7 +381,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Curse of Recklessness",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Recklessness"
   },
   {
    "id": "elements",
@@ -365,7 +405,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Curse of the Elements",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Elements"
   },
   {
    "id": "agony",
@@ -392,7 +434,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip Bane of Agony\n/cast [mod:ctrl] Amplify Curse\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Bane of Agony",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Agony"
   },
   {
    "id": "doom",
@@ -414,7 +458,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Bane of Doom",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Doom"
   },
   {
    "id": "havoc",
@@ -438,7 +484,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Bane of Havoc",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Havoc"
   },
   {
    "id": "fear",
@@ -461,7 +509,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Fear",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Fear"
   },
   {
    "id": "death-coil",
@@ -483,7 +533,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/stopcasting\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Death Coil",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Death Coil"
   },
   {
    "id": "howl",
@@ -502,7 +554,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/stopcasting\n/cast Howl of Terror",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Howl"
   },
   {
    "id": "banish",
@@ -525,7 +579,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Banish",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Banish"
   },
   {
    "id": "drain-mana",
@@ -547,17 +603,19 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Drain Mana",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Drain Mana"
   },
   {
    "id": "shadow-bolt",
-   "title": "Shadow Bolt + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Shadow Bolt",
+   "section": "Damage",
    "tags": [
     "PvP",
     "PvE"
    ],
-   "desc": "Your main nuke, with Blood Fury cast automatically on cooldown.",
+   "desc": "Your main nuke. Shift casts it at your focus.",
    "mods": [
     [
      "Click",
@@ -566,20 +624,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Shadow Bolt\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Shadow Bolt",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Shadow Bolt",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Shadow Bolt"
   },
   {
    "id": "incinerate",
-   "title": "Incinerate + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Incinerate",
+   "section": "Damage",
    "tags": [
     "PvE",
     "PvP",
@@ -594,20 +650,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Incinerate\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Incinerate",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Incinerate",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Incinerate"
   },
   {
    "id": "immolate",
-   "title": "Immolate + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Immolate",
+   "section": "Damage",
    "tags": [
     "PvP",
     "PvE"
@@ -621,20 +675,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Immolate\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Immolate",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Immolate",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Immolate"
   },
   {
    "id": "conflagrate",
-   "title": "Conflagrate + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Conflagrate",
+   "section": "Damage",
    "tags": [
     "PvP",
     "PvE",
@@ -649,20 +701,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Conflagrate\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Conflagrate",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Conflagrate",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Conflagrate"
   },
   {
    "id": "shadowburn",
-   "title": "Shadowburn + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Shadowburn",
+   "section": "Damage",
    "tags": [
     "PvP",
     "Talent"
@@ -676,20 +726,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Shadowburn\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Shadowburn",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Shadowburn",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Shadowburn"
   },
   {
    "id": "searing-pain",
-   "title": "Searing Pain + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Searing Pain",
+   "section": "Damage",
    "tags": [
     "PvP"
    ],
@@ -702,20 +750,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Searing Pain\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Searing Pain",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Searing Pain",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Searing Pain"
   },
   {
    "id": "soul-fire",
-   "title": "Soul Fire + Blood Fury",
-   "section": "Damage (auto Blood Fury)",
+   "title": "Soul Fire",
+   "section": "Damage",
    "tags": [
     "PvE"
    ],
@@ -728,20 +774,18 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     [
      "Shift",
      "Focus"
-    ],
-    [
-     "Auto",
-     "Blood Fury whenever it's ready"
     ]
    ],
-   "text": "#showtooltip Soul Fire\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Soul Fire",
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Soul Fire",
    "status": "ok",
-   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line."
+   "note": "",
+   "race": null,
+   "name": "Soul Fire"
   },
   {
    "id": "corruption",
    "title": "Corruption",
-   "section": "Damage (auto Blood Fury)",
+   "section": "Damage",
    "tags": [
     "PvP",
     "PvE"
@@ -759,12 +803,14 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Corruption",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Corruption"
   },
   {
    "id": "siphon-life",
    "title": "Siphon Life",
-   "section": "Damage (auto Blood Fury)",
+   "section": "Damage",
    "tags": [
     "PvP",
     "PvE",
@@ -783,7 +829,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Siphon Life",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Siphon Life"
   },
   {
    "id": "sacrifice",
@@ -803,7 +851,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip Demonic Sacrifice\n/cast Demonic Sacrifice",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Sacrifice"
   },
   {
    "id": "fel-summon",
@@ -838,7 +888,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [combat] Fel Domination\n/cast [mod:ctrl,mod:shift] Summon Incubus; [mod:shift] Summon Succubus; [mod:ctrl] Summon Imp; [mod:alt] Summon Voidwalker; Summon Felhunter",
    "status": "verify",
-   "note": "Fel Domination's cooldown in Forever is reported as both 5 and 15 minutes. Check the tooltip."
+   "note": "Fel Domination's cooldown in Forever is reported as both 5 and 15 minutes. Check the tooltip.",
+   "race": null,
+   "name": "Fel Summon"
   },
   {
    "id": "sac-resummon",
@@ -862,7 +914,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [combat] Fel Domination\n/castsequence reset=15 Demonic Sacrifice, Summon Felhunter",
    "status": "verify",
-   "note": "Swap Summon Felhunter for whichever demon you want after the sacrifice. Summoning the same demon you sacrificed removes the buff."
+   "note": "Swap Summon Felhunter for whichever demon you want after the sacrifice. Summoning the same demon you sacrificed removes the buff.",
+   "race": null,
+   "name": "Sac Resummon"
   },
   {
    "id": "trinket",
@@ -884,7 +938,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/use [mod:ctrl] 14; 13",
    "status": "verify",
-   "note": "Check your Insignia of the Horde tooltip in Forever for which effects it removes."
+   "note": "Check your Insignia of the Horde tooltip in Forever for which effects it removes.",
+   "race": null,
+   "name": "Trinket"
   },
   {
    "id": "healthstone",
@@ -903,7 +959,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/stopcasting\n/use Healthstone",
    "status": "verify",
-   "note": "Forever merges Healthstone ranks into one Create Healthstone spell. Confirm the item in your bags is named just 'Healthstone'."
+   "note": "Forever merges Healthstone ranks into one Create Healthstone spell. Confirm the item in your bags is named just 'Healthstone'.",
+   "race": null,
+   "name": "Healthstone"
   },
   {
    "id": "soulstone",
@@ -926,7 +984,9 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/use [@focus,mod:shift,help,nodead][help,nodead][@player] Soulstone",
    "status": "verify",
-   "note": "Confirm the item is named just 'Soulstone' in Forever (ranks are merged)."
+   "note": "Confirm the item is named just 'Soulstone' in Forever (ranks are merged).",
+   "race": null,
+   "name": "Soulstone"
   },
   {
    "id": "tap-ward",
@@ -949,7 +1009,228 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    ],
    "text": "#showtooltip\n/cast [mod:shift] Shadow Ward; Life Tap",
    "status": "ok",
-   "note": ""
+   "note": "",
+   "race": null,
+   "name": "Tap Ward"
+  },
+  {
+   "id": "orc-shadow-bolt",
+   "title": "Shadow Bolt + Blood Fury",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Shadow Bolt with Blood Fury (+10% attack and spell power) cast automatically whenever it's off cooldown.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Auto",
+     "Blood Fury whenever it's ready"
+    ]
+   ],
+   "text": "#showtooltip Shadow Bolt\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Shadow Bolt",
+   "status": "ok",
+   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line.",
+   "race": "Orc",
+   "name": "BF Shadow Bolt"
+  },
+  {
+   "id": "orc-incinerate",
+   "title": "Incinerate + Blood Fury",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Incinerate with Blood Fury (+10% attack and spell power) cast automatically whenever it's off cooldown.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Auto",
+     "Blood Fury whenever it's ready"
+    ]
+   ],
+   "text": "#showtooltip Incinerate\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Incinerate",
+   "status": "ok",
+   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line.",
+   "race": "Orc",
+   "name": "BF Incinerate"
+  },
+  {
+   "id": "orc-searing-pain",
+   "title": "Searing Pain + Blood Fury",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Searing Pain with Blood Fury (+10% attack and spell power) cast automatically whenever it's off cooldown.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Auto",
+     "Blood Fury whenever it's ready"
+    ]
+   ],
+   "text": "#showtooltip Searing Pain\n/cast Blood Fury\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Searing Pain",
+   "status": "ok",
+   "note": "Blood Fury is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line.",
+   "race": "Orc",
+   "name": "BF Searing Pain"
+  },
+  {
+   "id": "undead-wotf",
+   "title": "Will of the Forsaken / PvP trinket",
+   "section": "Racials",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Click breaks fear, charm and sleep with Will of the Forsaken. Shift uses the PvP trinket in slot 13 for stuns and everything else. They're on separate cooldowns, so pressing one never wastes the other.",
+   "mods": [
+    [
+     "Click",
+     "Will of the Forsaken"
+    ],
+    [
+     "Shift",
+     "Trinket in slot 13"
+    ]
+   ],
+   "text": "#showtooltip\n/use [mod:shift] 13\n/cast [nomod] Will of the Forsaken",
+   "status": "verify",
+   "note": "Put your PvP trinket (Insignia of the Horde) in the top trinket slot (13), or change 13 to 14. Check its tooltip in Forever for what it breaks.",
+   "race": "Undead",
+   "name": "WotF Trinket"
+  },
+  {
+   "id": "undead-cannibalize",
+   "title": "Cannibalize",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Eat a nearby humanoid or undead corpse to recover health (2-minute cooldown). Moving or taking damage cancels it.",
+   "mods": [
+    [
+     "Click",
+     "Cannibalize"
+    ]
+   ],
+   "text": "#showtooltip\n/cast Cannibalize",
+   "status": "ok",
+   "note": "",
+   "race": "Undead",
+   "name": "Undead Cannibali"
+  },
+  {
+   "id": "troll-shadow-bolt",
+   "title": "Shadow Bolt + Berserking",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Shadow Bolt with Berserking (+10% casting and attack speed) cast automatically whenever it's off cooldown.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Auto",
+     "Berserking whenever it's ready"
+    ]
+   ],
+   "text": "#showtooltip Shadow Bolt\n/cast Berserking\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Shadow Bolt",
+   "status": "ok",
+   "note": "Berserking is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line.",
+   "race": "Troll",
+   "name": "Zerk Shadow Bolt"
+  },
+  {
+   "id": "troll-incinerate",
+   "title": "Incinerate + Berserking",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Incinerate with Berserking (+10% casting and attack speed) cast automatically whenever it's off cooldown.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Auto",
+     "Berserking whenever it's ready"
+    ]
+   ],
+   "text": "#showtooltip Incinerate\n/cast Berserking\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Incinerate",
+   "status": "ok",
+   "note": "Berserking is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line.",
+   "race": "Troll",
+   "name": "Zerk Incinerate"
+  },
+  {
+   "id": "troll-searing-pain",
+   "title": "Searing Pain + Berserking",
+   "section": "Racials",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Searing Pain with Berserking (+10% casting and attack speed) cast automatically whenever it's off cooldown.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Auto",
+     "Berserking whenever it's ready"
+    ]
+   ],
+   "text": "#showtooltip Searing Pain\n/cast Berserking\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Searing Pain",
+   "status": "ok",
+   "note": "Berserking is off the global cooldown, so it goes out with the spell whenever it's ready and is skipped otherwise. To hide the 'Spell is not ready yet' message, add /run UIErrorsFrame:Clear() as a last line.",
+   "race": "Troll",
+   "name": "Zerk Searing Pai"
   }
  ]
 }</script>
@@ -960,30 +1241,44 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
   const toc = document.getElementById('toc');
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
   const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const plural = n => n + (n === 1 ? ' macro' : ' macros');
+  const ticked = new Set(data.macros.map(x => x.id));
+  const cards = new Map();
 
   data.sections.forEach(name => {
     const items = data.macros.filter(x => x.section === name);
     const sec = el('section'); sec.id = 's-' + slug(name);
-    const h = el('h2', null, name); h.appendChild(el('small', null, items.length + (items.length === 1 ? ' macro' : ' macros')));
-    sec.appendChild(h);
-    const grid = el('div', 'grid');
-    items.forEach(x => grid.appendChild(card(x)));
-    sec.appendChild(grid); main.appendChild(sec);
+    const h = el('h2', null, name); const small = el('small'); h.appendChild(small); sec.appendChild(h);
+    sec._count = small;
+    if (name === 'Racials') {
+      data.races.forEach(race => {
+        const group = items.filter(x => x.race === race); if (!group.length) return;
+        const wrap = el('div', 'race-group'); wrap.dataset.race = race;
+        const gh = el('h3', null, race); const gs = el('small'); gh.appendChild(gs); wrap._count = gs; wrap.appendChild(gh);
+        const grid = el('div', 'grid'); group.forEach(x => grid.appendChild(card(x))); wrap.appendChild(grid); sec.appendChild(wrap);
+      });
+    } else {
+      const grid = el('div', 'grid'); items.forEach(x => grid.appendChild(card(x))); sec.appendChild(grid);
+    }
+    main.appendChild(sec);
     const a = el('a', null, name); a.href = '#' + sec.id; toc.appendChild(a);
   });
   const empty = el('p', 'empty', 'No macros match. Clear the search or pick All.'); empty.hidden = true; main.appendChild(empty);
 
   function card(x) {
-    const c = el('article'); c.id = x.id;
+    const c = el('article'); c.id = x.id; cards.set(x.id, c);
     c.dataset.tags = x.tags.join(' ') + (x.status === 'verify' ? ' verify' : '');
-    c.dataset.search = (x.title + ' ' + x.desc + ' ' + x.text).toLowerCase();
+    c.dataset.race = x.race || '';
+    c.dataset.search = (x.title + ' ' + x.desc + ' ' + x.text + ' ' + (x.race || '')).toLowerCase();
     c.appendChild(el('h3', null, x.title));
-    const tags = el('div', 'tags'); x.tags.forEach(t => tags.appendChild(el('span', 'tag ' + t.toLowerCase(), t))); c.appendChild(tags);
+    const tags = el('div', 'tags');
+    if (x.race) tags.appendChild(el('span', 'tag race', x.race));
+    x.tags.forEach(t => tags.appendChild(el('span', 'tag ' + t.toLowerCase(), t))); c.appendChild(tags);
     c.appendChild(el('p', null, x.desc));
     const dl = el('dl', 'mods');
     x.mods.forEach(([k, v]) => { const dt = el('dt'); dt.appendChild(el('span', 'cap', k)); dl.appendChild(dt); dl.appendChild(el('dd', null, v)); });
     c.appendChild(dl);
-    const wrap = el('div', 'code'); const pre = el('pre', null, x.text); wrap.appendChild(pre);
+    const wrap = el('div', 'code'); wrap.appendChild(el('pre', null, x.text));
     const btn = el('button', 'copy', 'Copy'); btn.type = 'button'; btn.setAttribute('aria-label', 'Copy ' + x.title + ' macro');
     btn.addEventListener('click', () => copy(x.text, btn)); wrap.appendChild(btn); c.appendChild(wrap);
     if (x.note) c.appendChild(el('div', 'note' + (x.status === 'verify' ? '' : ' info'), x.note));
@@ -991,6 +1286,10 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     const n = x.text.length;
     foot.appendChild(el('span', 'count' + (n > 255 ? ' over' : ''), n + ' / 255 characters'));
     foot.appendChild(el('span', 'status ' + x.status, x.status === 'ok' ? 'Checked against the Forever spellbook' : 'Check in-game'));
+    const lab = el('label'); const box = el('input'); box.type = 'checkbox'; box.checked = true;
+    box.addEventListener('change', () => { box.checked ? ticked.add(x.id) : ticked.delete(x.id); updateCount(); });
+    c._box = box; lab.appendChild(box); lab.appendChild(document.createTextNode(' Include in download as "' + x.name + '"'));
+    foot.appendChild(lab);
     c.appendChild(foot);
     return c;
   }
@@ -1005,23 +1304,122 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
     }
   }
 
+  // Filters: tag, race, search
   let filter = 'all';
+  let race = 'all';
   const q = document.getElementById('q');
-  document.querySelectorAll('.bar button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#tag-chips button').forEach(b => b.addEventListener('click', () => {
     filter = b.dataset.f;
-    document.querySelectorAll('.bar button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    document.querySelectorAll('#tag-chips button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
     apply();
   }));
   q.addEventListener('input', apply);
-  function apply() {
-    const term = q.value.trim().toLowerCase(); let shown = 0;
-    document.querySelectorAll('article').forEach(c => {
-      const ok = (filter === 'all' || c.dataset.tags.split(' ').includes(filter)) && (!term || c.dataset.search.includes(term));
-      c.hidden = !ok; if (ok) shown++;
+
+  const raceChips = document.getElementById('race-chips');
+  if (data.races.length > 1) {
+    raceChips.hidden = false;
+    ['all'].concat(data.races).forEach(r => {
+      const b = el('button', null, r === 'all' ? 'All races' : r); b.dataset.race = r; b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => setRace(r, true)); raceChips.appendChild(b);
     });
-    document.querySelectorAll('section').forEach(s => { s.hidden = !s.querySelector('article:not([hidden])'); });
-    empty.hidden = shown > 0;
+    const m = location.hash.match(/race=([a-z]+)/i);
+    const fromHash = m && data.races.find(r => r.toLowerCase() === m[1].toLowerCase());
+    let saved = null; try { saved = localStorage.getItem('wfm-race-' + data.page); } catch (e) {}
+    race = fromHash || (data.races.includes(saved) ? saved : 'all');
   }
+  function setRace(r, user) {
+    race = r;
+    raceChips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.race === r)));
+    if (user) {
+      try { localStorage.setItem('wfm-race-' + data.page, r); } catch (e) {}
+      history.replaceState(null, '', r === 'all' ? location.pathname : '#race=' + r.toLowerCase());
+    }
+    apply();
+  }
+
+  function visible(c) {
+    return (filter === 'all' || c.dataset.tags.split(' ').includes(filter))
+      && (race === 'all' || !c.dataset.race || c.dataset.race === race)
+      && (!q.value.trim() || c.dataset.search.includes(q.value.trim().toLowerCase()));
+  }
+  function apply() {
+    let shown = 0;
+    cards.forEach(c => { const ok = visible(c); c.hidden = !ok; if (ok) shown++; });
+    document.querySelectorAll('.race-group').forEach(g => {
+      const n = g.querySelectorAll('article:not([hidden])').length; g.hidden = !n; g._count.textContent = plural(n);
+    });
+    document.querySelectorAll('main section').forEach(s => {
+      const n = s.querySelectorAll('article:not([hidden])').length; s.hidden = !n; s._count.textContent = plural(n);
+    });
+    empty.hidden = shown > 0;
+    updateCount();
+  }
+
+  // Download as macros-cache.txt
+  const LIMITS = { character: 18, account: 120 };
+  const BASE = { character: 0x1000001, account: 1 };
+  const hex = n => n.toString(16).toUpperCase().padStart(16, '0');
+  function chosen() { return data.macros.filter(x => ticked.has(x.id) && !cards.get(x.id).hidden); }
+  function updateCount() { document.getElementById('dl-count').textContent = chosen().length + ' selected'; }
+
+  function buildCache(macros, scope, existing) {
+    const warnings = [];
+    let head = '', names = new Set(), maxId = 0, count = 0;
+    if (existing) {
+      const lines = existing.replace(/\r\n?/g, '\n').split('\n');
+      const ver = lines.filter(l => /^VER 3 [0-9A-Fa-f]{16} ".*" ".*"\s*$/.test(l));
+      if (!ver.length && lines.some(l => /^MACRO /.test(l))) {
+        return { error: 'That file uses an older macro format this page can\'t merge into. Download without merging, or copy macros in by hand.' };
+      }
+      ver.forEach(l => {
+        const p = l.match(/^VER 3 ([0-9A-Fa-f]{16}) "(.*)" "(.*)"/);
+        maxId = Math.max(maxId, parseInt(p[1], 16)); names.add(p[2]); count++;
+      });
+      const isChar = maxId >= 0x1000000;
+      if (count && isChar !== (scope === 'character')) warnings.push('Your file looks like ' + (isChar ? 'a per-character' : 'an account-wide') + ' file, but you picked ' + (scope === 'character' ? 'This character only' : 'All characters') + '.');
+      head = lines.join('\r\n').replace(/(\r\n)*$/, '');
+      if (head) head += '\r\n';
+    }
+    let id = Math.max(BASE[scope], maxId + 1);
+    const added = [], skipped = [];
+    let out = head;
+    macros.forEach(x => {
+      const name = x.name.replace(/"/g, "'");
+      if (names.has(name)) { skipped.push(name); return; }
+      names.add(name);
+      out += 'VER 3 ' + hex(id++) + ' "' + name + '" "INV_Misc_QuestionMark"\r\n' + x.text.split('\n').join('\r\n') + '\r\nEND\r\n';
+      added.push(name);
+    });
+    const total = count + added.length;
+    if (total > LIMITS[scope]) warnings.push('That makes ' + total + ' macros, over the ' + LIMITS[scope] + ' allowed in ' + (scope === 'character' ? 'the per-character tab (Classic limit; Forever may allow more)' : 'the General tab') + '. WoW may drop the extras.');
+    return { text: out, added, skipped, kept: count, total, warnings };
+  }
+  window.WFM = { buildCache, chosen };
+
+  const status = document.getElementById('dl-status');
+  function say(msg, warn) { status.textContent = msg; status.className = warn ? 'warn' : ''; }
+  document.getElementById('dl-go').addEventListener('click', async () => {
+    const scope = document.querySelector('input[name=scope]:checked').value;
+    const list = chosen();
+    if (!list.length) return say('Nothing is selected. Tick some cards or clear the filters.', true);
+    const file = document.getElementById('merge').files[0];
+    const existing = file ? await file.text() : '';
+    const r = buildCache(list, scope, existing);
+    if (r.error) return say(r.error, true);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([r.text], { type: 'text/plain' }));
+    a.download = 'macros-cache.txt'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    let msg = 'Downloaded ' + plural(r.added.length) + (r.kept ? ', keeping your ' + plural(r.kept) : '') + '.';
+    if (r.skipped.length) msg += '\nSkipped because you already have a macro with that name: ' + r.skipped.join(', ') + '.';
+    if (r.warnings.length) msg += '\n' + r.warnings.join('\n');
+    say(msg, r.warnings.length > 0);
+  });
+  document.getElementById('sel-all').addEventListener('click', () => setAll(true));
+  document.getElementById('sel-none').addEventListener('click', () => setAll(false));
+  function setAll(on) { cards.forEach((c, id) => { c._box.checked = on; on ? ticked.add(id) : ticked.delete(id); }); updateCount(); }
+
+  if (data.races.length > 1) setRace(race, false); else apply();
 })();
 </script>
 </body>

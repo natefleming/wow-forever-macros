@@ -1,19 +1,18 @@
-"""Tauren Druid macros for WoW: Forever."""
-from macros import ANY, ASSIST, FOCUS, HARM, HELP, M_ANY, M_HARM, M_HELP, m
+"""Druid macros for WoW: Forever (Horde race: Tauren)."""
+from common import HARM, HELP, M_HARM, M_HELP, m, racials, trinket
 
 DEAD = "[@focus,mod:shift,help,dead][@mouseover,help,dead][help,dead]"
 M_DEAD = [["Click", "Dead mouseover, else dead target"], ["Shift", "Focus"]]
 SHIFT_NOTE = "/cancelform leaves your current form first, so this also breaks roots and slows (a powershift). It costs the form's mana again."
 
-DRUID = [
-    FOCUS, ASSIST,
+MACROS = [
 
     # Healing
     m("healing-touch", "Healing Touch + Nature's Swiftness", "Healing", ["PvP", "PvE"],
       "Big heal. Ctrl pops Nature's Swiftness first (off the global cooldown) to make it instant: the classic PvP emergency heal.",
       M_HELP + [["Ctrl", "Nature's Swiftness first"]],
       f"#showtooltip Healing Touch\n/cast [mod:ctrl] Nature's Swiftness\n/cast {HELP} Healing Touch",
-      "verify", "Nature's Swiftness wasn't in the Forever spell list the research found. If you don't have it, the Ctrl line is simply skipped."),
+      "verify", "Forever removed Nature's Swiftness from Shamans, and it wasn't in the Druid spell list either. If you don't have it, the Ctrl line is simply skipped."),
     m("regrowth", "Regrowth", "Healing", ["PvP", "PvE"],
       "Fast heal plus a HoT. Shift keeps your focus up.", M_HELP, f"#showtooltip\n/cast {HELP} Regrowth"),
     m("rejuvenation", "Rejuvenation", "Healing", ["PvP", "PvE"],
@@ -123,11 +122,15 @@ DRUID = [
       "#showtooltip\n/cast [mod:ctrl,@focus,mod:shift,harm][mod:ctrl] Starfire; [@focus,mod:shift,harm,nodead][] Wrath"),
     m("hurricane", "Hurricane", "Balance", ["PvE"],
       "No cooldown in Forever. Ground-targeted AoE.", [["Click", "Hurricane"]], "#showtooltip\n/cast Hurricane"),
+    trinket("Control"),
+] + racials(["Tauren"], [])
 
-    # PvP
-    m("war-stomp", "War Stomp / PvP trinket", "PvP", ["PvP"],
-      "Click War Stomps: a 2-second area stun, usable in any form. Shift uses the PvP trinket in slot 13. They're on separate cooldowns.",
-      [["Click", "War Stomp"], ["Shift", "Trinket in slot 13"]],
-      "#showtooltip\n/use [mod:shift] 13\n/cast [nomod] War Stomp",
-      "verify", "Put your PvP trinket (Insignia of the Horde) in slot 13, or change 13 to 14."),
-]
+SPELLS = {
+    "Healing Touch", "Regrowth", "Rejuvenation", "Swiftmend", "Innervate", "Rebirth", "Thorns",
+    "Gift of the Wild", "Mark of the Wild", "Remove Curse", "Abolish Poison", "Cat Form", "Travel Form",
+    "Moonkin Form", "Prowl", "Dash", "Ravage", "Pounce", "Shred", "Rip", "Ferocious Bite", "Rake", "Claw",
+    "Feral Charge", "Bash", "Faerie Fire", "Swipe", "Maul", "Growl", "Barkskin", "Frenzied Regeneration",
+    "Entangling Roots", "Hibernate", "Nature's Grasp", "Moonfire", "Insect Swarm", "Starfire", "Wrath",
+    "Hurricane", "Nature's Swiftness", "Wild Growth", "Revive", "Dire Bear Form", "Lacerate", "Cyclone",
+}
+UNSURE = {"Nature's Swiftness", "Wild Growth", "Revive", "Dire Bear Form", "Lacerate", "Cyclone"}

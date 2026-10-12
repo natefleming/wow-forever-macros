@@ -26,8 +26,10 @@ h1 { font: 600 clamp(44px, 8vw, 88px)/1 var(--serif); margin: 0 0 14px; letter-s
 a.cls { display: flex; flex-direction: column; gap: 10px; padding: 26px 28px; border-radius: 12px; text-decoration: none;
   color: var(--c-ink); background: var(--c-bg); border: 1px solid var(--c-line); border-top: 4px solid var(--c-accent); }
 a.cls:hover { border-color: var(--c-accent); }
+a.cls.wide { grid-column: 1 / -1; }
 a.cls h2 { font: 600 40px/1.05 var(--serif); margin: 0; }
 a.cls h2 .glyph { color: var(--c-accent); font-weight: 400; margin-right: 0.2em; }
+a.cls .races { color: var(--c-accent); font-size: 15px; }
 a.cls p { margin: 0; color: var(--c-muted); max-width: 60ch; }
 a.cls .stats { color: var(--c-ink); font-size: 15px; }
 a.cls .stats b { color: var(--c-accent); }
@@ -41,7 +43,7 @@ footer p { max-width: 80ch; margin: 0 0 8px; }
 <body>
 <header class="wrap">
   <h1>WoW: Forever macros</h1>
-  <p class="lede">Copy-ready PvP and PvE macros for 4 characters, written for Forever's spellbook and checked against the 255-character limit. Every page uses the same keys, so your hands learn it once.</p>
+  <p class="lede">Copy-ready PvP and PvE macros for every Horde class, written for Forever's spellbook and checked against the 255-character limit. Every page uses the same keys, so your hands learn it once.</p>
   <div class="keys" aria-label="Modifier conventions">
     <div class="k"><span class="cap">Click</span><span>Your target, or what's under your mouse</span></div>
     <div class="k"><span class="cap">Shift</span><span>Your focus target</span></div>
@@ -50,37 +52,90 @@ footer p { max-width: 80ch; margin: 0 0 8px; }
   </div>
 </header>
 <main class="wrap classes">
+<a class="cls wide" href="general.html" style="--c-bg:#1b1d25;--c-line:#2c2f3b;--c-ink:#ece8df;--c-muted:#9a9cab;--c-accent:#e6d3a3">
+  <h2><span class="glyph" aria-hidden="true">❖</span>All characters</h2>
+  
+  <p>Focus, markers, mounts, trinkets and interface toggles that every character can use. Put these in the account-wide General tab.</p>
+  <div class="stats"><b>16</b> macros, 5 to check in-game</div>
+  <ul><li>Focus &amp; targeting</li><li>Travel</li><li>Combat</li><li>Group</li><li>Interface</li></ul>
+  <span class="go">Open All characters macros</span>
+</a>
+<a class="cls" href="warrior.html" style="--c-bg:#221b15;--c-line:#3a2f25;--c-ink:#eee5da;--c-muted:#a8998a;--c-accent:#d4a574">
+  <h2><span class="glyph" aria-hidden="true">⚔</span>Warrior</h2>
+  <div class="races">Horde: Orc, Undead, Tauren, Troll</div>
+  <p>Stance-aware buttons: Charge or Intercept, Pummel or Shield Bash, and Heroic Strike queued on top of every attack.</p>
+  <div class="stats"><b>27</b> macros, 5 to check in-game</div>
+  <ul><li>Gap closers &amp; interrupts</li><li>Attacks</li><li>Tanking</li><li>Cooldowns &amp; shouts</li><li>Racials</li></ul>
+  <span class="go">Open Warrior macros</span>
+</a>
+<a class="cls" href="paladin.html" style="--c-bg:#251a21;--c-line:#3d2b36;--c-ink:#f1e6ec;--c-muted:#ad97a4;--c-accent:#f29cc3">
+  <h2><span class="glyph" aria-hidden="true">✠</span>Paladin</h2>
+  <div class="races">Horde: Undead</div>
+  <p>New for the Forsaken in Forever. Mouseover heals, blessings on your focus, and Judgement with an instant reseal.</p>
+  <div class="stats"><b>25</b> macros, 4 to check in-game</div>
+  <ul><li>Healing</li><li>Protection</li><li>Seals &amp; judgement</li><li>Control &amp; damage</li><li>Auras &amp; tanking</li><li>Racials</li></ul>
+  <span class="go">Open Paladin macros</span>
+</a>
+<a class="cls" href="hunter.html" style="--c-bg:#1a2017;--c-line:#2d3726;--c-ink:#e8eedf;--c-muted:#9aa58e;--c-accent:#b2d67a">
+  <h2><span class="glyph" aria-hidden="true">➶</span>Hunter</h2>
+  <div class="races">Horde: Orc, Tauren, Troll</div>
+  <p>Shots that keep Auto Shot running, traps at your feet, and one button that keeps your pet alive.</p>
+  <div class="stats"><b>27</b> macros, 4 to check in-game</div>
+  <ul><li>Shots</li><li>Control</li><li>Melee &amp; defensive</li><li>Pet</li><li>Racials</li></ul>
+  <span class="go">Open Hunter macros</span>
+</a>
+<a class="cls" href="rogue.html" style="--c-bg:#211f14;--c-line:#38351f;--c-ink:#efedd9;--c-muted:#a9a586;--c-accent:#f2e66a">
+  <h2><span class="glyph" aria-hidden="true">☾</span>Rogue</h2>
+  <div class="races">Horde: Orc, Undead, Troll</div>
+  <p>Stealth openers that won&#x27;t break stealth, kicks and blinds on your focus, and poisons in two clicks.</p>
+  <div class="stats"><b>27</b> macros, 6 to check in-game</div>
+  <ul><li>Openers &amp; combo points</li><li>Control</li><li>Defensive</li><li>Cooldowns &amp; utility</li><li>Racials</li></ul>
+  <span class="go">Open Rogue macros</span>
+</a>
 <a class="cls" href="priest.html" style="--c-bg:#1c2330;--c-line:#2c3546;--c-ink:#ece6d6;--c-muted:#949cae;--c-accent:#d8b25c">
-  <h2><span class="glyph" aria-hidden="true">✶</span>Undead Priest</h2>
-  <p>Undercity-trained healer and shadow caster. Mouseover heals, focus dispels, and one key for every way out of crowd control.</p>
-  <div class="stats"><b>34</b> macros, 4 to check in-game</div>
-  <ul><li>Focus &amp; utility</li><li>Healing</li><li>Dispels</li><li>PvP control</li><li>PvP defensive</li><li>Damage</li><li>Talent &amp; spec</li></ul>
-  <span class="go">Open Undead Priest macros</span>
+  <h2><span class="glyph" aria-hidden="true">✶</span>Priest</h2>
+  <div class="races">Horde: Undead, Troll</div>
+  <p>Mouseover heals, focus dispels and silences, with Undead and Troll racial spells in their own groups.</p>
+  <div class="stats"><b>39</b> macros, 5 to check in-game</div>
+  <ul><li>Healing</li><li>Dispels</li><li>PvP control</li><li>PvP defensive</li><li>Damage</li><li>Talent &amp; spec</li><li>Racials</li></ul>
+  <span class="go">Open Priest macros</span>
 </a>
-<a class="cls" href="warlock.html" style="--c-bg:#201829;--c-line:#33283f;--c-ink:#e9e2ee;--c-muted:#a095ae;--c-accent:#94d35a">
-  <h2><span class="glyph" aria-hidden="true">⛧</span>Orc Warlock</h2>
-  <p>Orgrimmar demon-binder. Every pet on one key, every curse on your focus, and Blood Fury that never sits idle.</p>
-  <div class="stats"><b>34</b> macros, 6 to check in-game</div>
-  <ul><li>Focus &amp; utility</li><li>Pets</li><li>Curses &amp; banes</li><li>Control</li><li>Damage (auto Blood Fury)</li><li>Sacrifice &amp; summon</li><li>Survival</li></ul>
-  <span class="go">Open Orc Warlock macros</span>
-</a>
-<a class="cls" href="druid.html" style="--c-bg:#1e2219;--c-line:#323828;--c-ink:#ece7d9;--c-muted:#9fa290;--c-accent:#f08a2c">
-  <h2><span class="glyph" aria-hidden="true">❦</span>Tauren Druid</h2>
-  <p>Thunder Bluff shapeshifter. Shift out of roots without leaving form, heal your focus from bear, and War Stomp on demand.</p>
-  <div class="stats"><b>36</b> macros, 7 to check in-game</div>
-  <ul><li>Focus &amp; utility</li><li>Healing</li><li>Dispels</li><li>Forms &amp; mobility</li><li>Feral</li><li>Control</li><li>Balance</li><li>PvP</li></ul>
-  <span class="go">Open Tauren Druid macros</span>
+<a class="cls" href="shaman.html" style="--c-bg:#152035;--c-line:#24344f;--c-ink:#e3ebf6;--c-muted:#8fa0bb;--c-accent:#4fa3ef">
+  <h2><span class="glyph" aria-hidden="true">ϟ</span>Shaman</h2>
+  <div class="races">Horde: Orc, Tauren, Troll</div>
+  <p>Totems by element on one key each, Forever&#x27;s new totem sets, and Earth Shock interrupts on your focus.</p>
+  <div class="stats"><b>30</b> macros, 7 to check in-game</div>
+  <ul><li>Healing</li><li>Shocks &amp; spells</li><li>Totems</li><li>Buffs &amp; utility</li><li>Racials</li></ul>
+  <span class="go">Open Shaman macros</span>
 </a>
 <a class="cls" href="mage.html" style="--c-bg:#182039;--c-line:#2a3556;--c-ink:#e6ecf7;--c-muted:#95a1bd;--c-accent:#6cc6f0">
-  <h2><span class="glyph" aria-hidden="true">✧</span>Orc Mage</h2>
-  <p>Orgrimmar battle-mage. Sheep and counterspell your focus without losing your target, with Blood Fury riding every nuke.</p>
-  <div class="stats"><b>27</b> macros, 5 to check in-game</div>
-  <ul><li>Focus &amp; utility</li><li>Control</li><li>Defensive</li><li>Damage (auto Blood Fury)</li><li>Burst &amp; AoE</li><li>Utility</li></ul>
-  <span class="go">Open Orc Mage macros</span>
+  <h2><span class="glyph" aria-hidden="true">✧</span>Mage</h2>
+  <div class="races">Horde: Orc, Undead, Troll</div>
+  <p>Sheep and counterspell your focus without losing your target. Orc and Troll mages get their racials on every nuke.</p>
+  <div class="stats"><b>33</b> macros, 6 to check in-game</div>
+  <ul><li>Control</li><li>Defensive</li><li>Damage</li><li>Burst &amp; AoE</li><li>Utility</li><li>Racials</li></ul>
+  <span class="go">Open Mage macros</span>
+</a>
+<a class="cls" href="warlock.html" style="--c-bg:#201829;--c-line:#33283f;--c-ink:#e9e2ee;--c-muted:#a095ae;--c-accent:#94d35a">
+  <h2><span class="glyph" aria-hidden="true">⛧</span>Warlock</h2>
+  <div class="races">Horde: Orc, Undead, Troll</div>
+  <p>Every pet on one key, every curse on your focus, and sacrifice-and-resummon buttons.</p>
+  <div class="stats"><b>40</b> macros, 7 to check in-game</div>
+  <ul><li>Pets</li><li>Curses &amp; banes</li><li>Control</li><li>Damage</li><li>Sacrifice &amp; summon</li><li>Survival</li><li>Racials</li></ul>
+  <span class="go">Open Warlock macros</span>
+</a>
+<a class="cls" href="druid.html" style="--c-bg:#1e2219;--c-line:#323828;--c-ink:#ece7d9;--c-muted:#9fa290;--c-accent:#f08a2c">
+  <h2><span class="glyph" aria-hidden="true">❦</span>Druid</h2>
+  <div class="races">Horde: Tauren</div>
+  <p>Powershift out of roots, heal your focus from any form, and War Stomp on demand.</p>
+  <div class="stats"><b>35</b> macros, 8 to check in-game</div>
+  <ul><li>Healing</li><li>Dispels</li><li>Forms &amp; mobility</li><li>Feral</li><li>Control</li><li>Balance</li><li>Racials</li></ul>
+  <span class="go">Open Druid macros</span>
 </a>
 </main>
 <footer><div class="wrap">
   <p>Spell names come from the Forever beta (October 2026). Macros marked check in-game depend on a detail the beta hasn't settled.</p>
+  <p>Every page can download its macros as a macros-cache.txt file to drop into your WoW folder, and class pages can filter by race.</p>
   <p>Turn on the focus frame first: Esc → Edit Mode → Focus Frame.</p>
 </div></footer>
 </body>

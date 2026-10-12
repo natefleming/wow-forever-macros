@@ -1,8 +1,7 @@
-"""Orc Mage macros for WoW: Forever (Orc Mage is a new Forever combination)."""
-from macros import ASSIST, BF_NOTE, FOCUS, HARM, HELP, M_BF, M_HARM, M_HELP, bf, m
+"""Mage macros for WoW: Forever (Horde races: Orc (new in Forever), Undead, Troll)."""
+from common import HARM, HELP, M_HARM, M_HELP, h, m, racials, trinket
 
-MAGE = [
-    FOCUS, ASSIST,
+MACROS = [
 
     # Control
     m("polymorph", "Polymorph", "Control", ["PvP", "PvE"],
@@ -41,36 +40,36 @@ MAGE = [
       "Shift decurses your focus.", M_HELP, f"#showtooltip\n/cast {HELP} Remove Lesser Curse"),
 
     # Damage
-    m("frostbolt", "Frostbolt + Blood Fury", "Damage (auto Blood Fury)", ["PvP", "PvE"],
-      "Main Frost nuke, with Blood Fury cast automatically on cooldown.", M_BF, bf("Frostbolt"), note=BF_NOTE),
-    m("fireball", "Fireball + Blood Fury", "Damage (auto Blood Fury)", ["PvE", "PvP"],
-      "Main Fire nuke, with Blood Fury on cooldown.", M_BF, bf("Fireball"), note=BF_NOTE),
-    m("fire-blast", "Fire Blast + Blood Fury", "Damage (auto Blood Fury)", ["PvP", "PvE"],
-      "Instant finisher on the move.", M_BF, bf("Fire Blast"), note=BF_NOTE),
-    m("scorch", "Scorch + Blood Fury", "Damage (auto Blood Fury)", ["PvE", "PvP"],
-      "Fast fire cast for stacking Fire Vulnerability or finishing a kite.", M_BF, bf("Scorch"), note=BF_NOTE),
-    m("pyroblast", "Pyroblast + Presence of Mind", "Damage (auto Blood Fury)", ["PvP", "PvE"],
-      "Ctrl pops Presence of Mind first for an instant Pyroblast: the classic PvP burst. Blood Fury goes with it.",
-      M_BF + [["Ctrl", "Presence of Mind first"]],
-      f"#showtooltip Pyroblast\n/cast Blood Fury\n/cast [mod:ctrl] Presence of Mind\n/cast {HARM} Pyroblast", note=BF_NOTE),
-    m("missiles", "Arcane Missiles (no clipping)", "Damage (auto Blood Fury)", ["PvE", "PvP"],
+    m("frostbolt", "Frostbolt", "Damage", ["PvP", "PvE"],
+      "Main Frost nuke. Shift casts it at your focus.", M_HARM, h("Frostbolt")),
+    m("fireball", "Fireball", "Damage", ["PvE", "PvP"],
+      "Main Fire nuke. Shift casts it at your focus.", M_HARM, h("Fireball")),
+    m("fire-blast", "Fire Blast", "Damage", ["PvP", "PvE"],
+      "Instant finisher on the move.", M_HARM, h("Fire Blast")),
+    m("scorch", "Scorch", "Damage", ["PvE", "PvP"],
+      "Fast fire cast for stacking Fire Vulnerability or finishing a kite.", M_HARM, h("Scorch")),
+    m("pyroblast", "Pyroblast + Presence of Mind", "Damage", ["PvP", "PvE"],
+      "Ctrl pops Presence of Mind first for an instant Pyroblast: the classic PvP burst.",
+      M_HARM + [["Ctrl", "Presence of Mind first"]],
+      f"#showtooltip Pyroblast\n/cast [mod:ctrl] Presence of Mind\n/cast {HARM} Pyroblast"),
+    m("missiles", "Arcane Missiles (no clipping)", "Damage", ["PvE", "PvP"],
       "Won't restart the channel if you press it while already channeling.", M_HARM,
       "#showtooltip\n/cast [nochanneling,@focus,mod:shift,harm,nodead][nochanneling,@mouseover,harm,nodead][nochanneling] Arcane Missiles"),
-    m("arcane-blast", "Arcane Blast + Blood Fury", "Damage (auto Blood Fury)", ["PvE"],
-      "New in Forever. Its mana cost climbs with each cast in a row.", M_BF, bf("Arcane Blast"),
-      "verify", "New in Forever. Name taken from the beta spellbook. " + BF_NOTE),
-    m("ice-lance", "Ice Lance + Blood Fury", "Damage (auto Blood Fury)", ["PvP", "PvE"],
-      "New in Forever. Instant, with bonus damage against frozen targets: Frost Nova, then Ice Lance.", M_BF, bf("Ice Lance"),
-      "verify", "New in Forever. Name taken from the beta spellbook. " + BF_NOTE),
-    m("frostfire", "Frostfire Bolt + Blood Fury", "Damage (auto Blood Fury)", ["PvE", "PvP"],
-      "New Fire/Frost hybrid at level 40.", M_BF, bf("Frostfire Bolt"),
-      "verify", "New in Forever. Name taken from the beta spellbook. " + BF_NOTE),
+    m("arcane-blast", "Arcane Blast", "Damage", ["PvE"],
+      "New in Forever. Its mana cost climbs with each cast in a row.", M_HARM, h("Arcane Blast"),
+      "verify", "New in Forever. Name taken from the beta spellbook."),
+    m("ice-lance", "Ice Lance", "Damage", ["PvP", "PvE"],
+      "New in Forever. Instant, with bonus damage against frozen targets: Frost Nova, then Ice Lance.", M_HARM, h("Ice Lance"),
+      "verify", "New in Forever. Name taken from the beta spellbook."),
+    m("frostfire", "Frostfire Bolt", "Damage", ["PvE", "PvP"],
+      "New Fire/Frost hybrid at level 40.", M_HARM, h("Frostfire Bolt"),
+      "verify", "New in Forever. Name taken from the beta spellbook."),
 
     # Burst & AoE
     m("burst", "Burst: Arcane Power / Combustion", "Burst & AoE", ["PvP", "PvE", "Talent"],
-      "Pops Blood Fury and your talent cooldown together. Neither uses the global cooldown, so your next cast is already buffed.",
+      "Your talent burst cooldown. It doesn't use the global cooldown, so your next cast is already buffed.",
       [["Click", "Arcane Power"], ["Ctrl", "Combustion"]],
-      "#showtooltip\n/cast Blood Fury\n/cast [mod:ctrl] Combustion; Arcane Power"),
+      "#showtooltip\n/cast [mod:ctrl] Combustion; Arcane Power"),
     m("aoe", "AoE", "Burst & AoE", ["PvE"],
       "AoE on one key. Here Shift and Ctrl choose the spell, not the focus.",
       [["Click", "Arcane Explosion"], ["Shift", "Blizzard"], ["Ctrl", "Flamestrike"]],
@@ -93,4 +92,13 @@ MAGE = [
     m("slow-fall", "Slow Fall", "Utility", ["PvP", "PvE"],
       "Shift slow-falls your focus. Handy for flag carriers and big drops.", M_HELP,
       f"#showtooltip\n/cast {HELP} Slow Fall"),
-]
+] + racials(["Orc", "Undead", "Troll"], ["Frostbolt", "Fireball", "Pyroblast"])
+
+SPELLS = {
+    "Polymorph", "Counterspell", "Frost Nova", "Cone of Cold", "Blink", "Ice Block", "Ice Barrier",
+    "Mana Shield", "Frost Ward", "Fire Ward", "Remove Lesser Curse", "Frostbolt", "Fireball", "Fire Blast",
+    "Scorch", "Pyroblast", "Presence of Mind", "Arcane Missiles", "Arcane Power", "Combustion",
+    "Arcane Explosion", "Blizzard", "Flamestrike", "Evocation", "Arcane Intellect", "Amplify Magic",
+    "Dampen Magic", "Ice Armor", "Mage Armor", "Slow Fall", "Arcane Blast", "Ice Lance", "Frostfire Bolt",
+}
+UNSURE = {"Arcane Blast", "Ice Lance", "Frostfire Bolt", "Mana Ruby"}
