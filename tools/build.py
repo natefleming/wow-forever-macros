@@ -60,6 +60,7 @@ TEMPLATE = """<!doctype html>
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }}
 * {{ box-sizing: border-box; }}
+[hidden] {{ display: none !important; }}
 body {{ margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }}
 a {{ color: var(--accent); }}
 code {{ font: 0.9em var(--mono); }}
