@@ -18,7 +18,7 @@ def page(mod, title, file, races, sections):
 
 PAGES = {
     "general": page(general, "All characters", "general.html", [],
-                    ["Focus & targeting", "Travel", "Combat", "Group", "Interface"]),
+                    ["Focus & targeting", "Travel", "Combat", "Group", "Interface", "Fishing"]),
     "warrior": page(warrior, "Warrior", "warrior.html", ["Orc", "Undead", "Tauren", "Troll"],
                     ["Gap closers & interrupts", "Attacks", "Tanking", "Cooldowns & shouts"]),
     "paladin": page(paladin, "Paladin", "paladin.html", ["Undead"],

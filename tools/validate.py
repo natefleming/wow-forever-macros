@@ -21,7 +21,7 @@ COMMANDS = {"/cast", "/spell", "/use", "/castsequence", "/stopcasting", "/stopma
             "/target", "/tar", "/assist", "/a", "/petattack", "/petfollow", "/petpassive", "/petdefensive",
             "/petstay", "/cancelaura", "/cancelform", "/startattack", "/stopattack", "/run", "/script",
             "/targetenemyplayer", "/targetfriendplayer", "/targetmarker", "/dismount", "/follow", "/equipset",
-            "/readycheck", "/roll", "/reload", "/console"}
+            "/readycheck", "/roll", "/reload", "/console", "/equip"}
 NO_NAME_CHECK = {"/focus", "/clearfocus", "/target", "/tar", "/assist", "/a", "/petattack", "/petfollow",
                  "/petpassive", "/petdefensive", "/petstay", "/stopmacro", "/stopcasting", "/startattack",
                  "/stopattack", "/targetenemyplayer", "/targetfriendplayer", "/targetmarker", "/dismount",
@@ -46,7 +46,7 @@ PET_SPELLS = {"Seduction", "Spell Lock", "Sacrifice", "Phase Shift", "Devour Mag
               "Suffering", "Soothing Kiss", "Torment"}
 ITEMS = {"Healthstone", "Soulstone", "Mana Ruby", "Thistle Tea", "Hearthstone", "Deadly Poison V",
          "Instant Poison VI", "Mind-numbing Poison III", "Crippling Poison II", "Horn of the Swift Brown Wolf",
-         "Conjured Crystal Water", "Roasted Quail"}
+         "Conjured Crystal Water", "Roasted Quail", "Strong Fishing Pole", "Aquadynamic Fish Attractor"}
 STABLE_ITEMS = {"Thistle Tea"}
 
 
@@ -89,6 +89,9 @@ def lint(macro, page):
         for conds, _ in clauses:
             check_conditions(conds, errs)
         if cmd in NO_NAME_CHECK:
+            continue
+        if cmd == "/equip":
+            names |= {rest for _, rest in clauses if rest}
             continue
         if cmd in ("/cast", "/spell", "/use"):
             spells = {rest.lstrip("!") for _, rest in clauses if rest and not rest.startswith("item:")}

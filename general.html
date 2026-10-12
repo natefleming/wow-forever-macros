@@ -189,7 +189,8 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
   "Travel",
   "Combat",
   "Group",
-  "Interface"
+  "Interface",
+  "Fishing"
  ],
  "macros": [
   {
@@ -557,6 +558,74 @@ footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48
    "note": "",
    "race": null,
    "name": "Auto Loot"
+  },
+  {
+   "id": "fish",
+   "title": "Fish / apply lure",
+   "section": "Fishing",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Equips your fishing pole if it isn't on, then casts. Shift puts a lure on the pole instead (+100 Fishing for 5 minutes with Aquadynamic Fish Attractor).",
+   "mods": [
+    [
+     "Click",
+     "Equip pole if needed, then cast"
+    ],
+    [
+     "Shift",
+     "Apply lure to the pole"
+    ]
+   ],
+   "text": "#showtooltip Fishing\n/equip [noequipped:Fishing Poles] Strong Fishing Pole\n/use [mod:shift] Aquadynamic Fish Attractor\n/use [mod:shift] 16\n/stopmacro [mod:shift]\n/cast Fishing",
+   "status": "verify",
+   "note": "Change Strong Fishing Pole and Aquadynamic Fish Attractor to the pole and lure in your bags. Bright Baubles or Shiny Baubles work too. Equipping only works out of combat.",
+   "race": null,
+   "name": "Fish"
+  },
+  {
+   "id": "fish-gear",
+   "title": "Swap fishing gear",
+   "section": "Fishing",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Toggles between your fishing set and your normal gear: if the pole is on, it puts your PvE set back on.",
+   "mods": [
+    [
+     "Pole equipped",
+     "PvE set"
+    ],
+    [
+     "Otherwise",
+     "Fishing set"
+    ]
+   ],
+   "text": "/equipset [equipped:Fishing Poles] PvE; Fishing",
+   "status": "verify",
+   "note": "Save sets named Fishing and PvE in the Equipment Manager, or change the names here (they're case-sensitive).",
+   "race": null,
+   "name": "Fishing Gear"
+  },
+  {
+   "id": "fish-interact",
+   "title": "Hook the bobber with a key",
+   "section": "Fishing",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Run this once. Then cast, wait for the splash, and press your Interact With Target key (bind it in Options > Keybindings > Targeting) instead of clicking the bobber.",
+   "mods": [
+    [
+     "Click",
+     "Turn on soft-target interact"
+    ]
+   ],
+   "text": "/console SoftTargetInteract 3",
+   "status": "verify",
+   "note": "Forever supports the Interact key for bobbers, but it only reaches bobbers within soft-target range. If one lands too far away, recast or step closer.",
+   "race": null,
+   "name": "Bobber Key"
   }
  ]
 }</script>

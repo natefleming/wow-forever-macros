@@ -1,8 +1,8 @@
 """Macros for every character. Meant for the account-wide (General) macro tab."""
 from common import m
 
-SPELLS = set()
-UNSURE = {"Hearthstone", "Horn of the Swift Brown Wolf", "Conjured Crystal Water", "Roasted Quail"}
+SPELLS = {"Fishing"}
+UNSURE = {"Strong Fishing Pole", "Aquadynamic Fish Attractor", "Hearthstone", "Horn of the Swift Brown Wolf", "Conjured Crystal Water", "Roasted Quail"}
 
 MACROS = [
     m("set-focus", "Set focus", "Focus & targeting", ["PvP", "PvE"],
@@ -67,4 +67,22 @@ MACROS = [
       "Turns auto-loot on or off and prints the new setting.", [["Click", "Toggle"]],
       '/run local v=GetCVar("autoLootDefault")=="1" and "0" or "1" SetCVar("autoLootDefault",v) print("Auto-loot "..(v=="1" and "on" or "off"))',
       name="Auto Loot"),
+
+    m("fish", "Fish / apply lure", "Fishing", ["PvE"],
+      "Equips your fishing pole if it isn't on, then casts. Shift puts a lure on the pole instead (+100 Fishing for 5 minutes with Aquadynamic Fish Attractor).",
+      [["Click", "Equip pole if needed, then cast"], ["Shift", "Apply lure to the pole"]],
+      "#showtooltip Fishing\n/equip [noequipped:Fishing Poles] Strong Fishing Pole\n/use [mod:shift] Aquadynamic Fish Attractor\n/use [mod:shift] 16\n/stopmacro [mod:shift]\n/cast Fishing",
+      "verify", "Change Strong Fishing Pole and Aquadynamic Fish Attractor to the pole and lure in your bags. Bright Baubles or Shiny Baubles work too. Equipping only works out of combat.",
+      name="Fish"),
+    m("fish-gear", "Swap fishing gear", "Fishing", ["PvE"],
+      "Toggles between your fishing set and your normal gear: if the pole is on, it puts your PvE set back on.",
+      [["Pole equipped", "PvE set"], ["Otherwise", "Fishing set"]],
+      "/equipset [equipped:Fishing Poles] PvE; Fishing",
+      "verify", "Save sets named Fishing and PvE in the Equipment Manager, or change the names here (they're case-sensitive).",
+      name="Fishing Gear"),
+    m("fish-interact", "Hook the bobber with a key", "Fishing", ["PvE"],
+      "Run this once. Then cast, wait for the splash, and press your Interact With Target key (bind it in Options > Keybindings > Targeting) instead of clicking the bobber.",
+      [["Click", "Turn on soft-target interact"]], "/console SoftTargetInteract 3",
+      "verify", "Forever supports the Interact key for bobbers, but it only reaches bobbers within soft-target range. If one lands too far away, recast or step closer.",
+      name="Bobber Key"),
 ]
