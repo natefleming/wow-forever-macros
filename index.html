@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WoW: Forever macros</title>
+<style>
+:root {
+  --bg: #13141a; --panel: #1b1d25; --line: #2c2f3b; --ink: #ece8df; --muted: #9a9cab; --accent: #e6d3a3;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+header { padding: 64px 0 36px; }
+h1 { font: 600 clamp(44px, 8vw, 88px)/1 var(--serif); margin: 0 0 14px; letter-spacing: -0.015em; }
+.lede { max-width: 60ch; color: var(--muted); font-size: 18px; margin: 0 0 30px; }
+.keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.keys .k { display: flex; gap: 14px; align-items: center; }
+.cap { display: inline-block; min-width: 2.4em; padding: 8px 14px; border: 1px solid var(--accent); border-bottom-width: 3px;
+  border-radius: 6px; background: var(--panel); color: var(--accent); font: 600 20px var(--sans); text-align: center; }
+.keys .k span:last-child { font-size: 15px; }
+.classes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 20px; padding: 20px 0 8px; }
+a.cls { display: flex; flex-direction: column; gap: 10px; padding: 26px 28px; border-radius: 12px; text-decoration: none;
+  color: var(--c-ink); background: var(--c-bg); border: 1px solid var(--c-line); border-top: 4px solid var(--c-accent); }
+a.cls:hover { border-color: var(--c-accent); }
+a.cls h2 { font: 600 40px/1.05 var(--serif); margin: 0; }
+a.cls h2 .glyph { color: var(--c-accent); font-weight: 400; margin-right: 0.2em; }
+a.cls p { margin: 0; color: var(--c-muted); max-width: 60ch; }
+a.cls .stats { color: var(--c-ink); font-size: 15px; }
+a.cls .stats b { color: var(--c-accent); }
+a.cls ul { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 4px 0 0; padding: 0; }
+a.cls li { font-size: 13px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-muted); }
+a.cls .go { margin-top: auto; padding-top: 8px; color: var(--c-accent); font-weight: 600; }
+footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48px; color: var(--muted); font-size: 14px; }
+footer p { max-width: 80ch; margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1>WoW: Forever macros</h1>
+  <p class="lede">Copy-ready PvP and PvE macros for 4 characters, written for Forever's spellbook and checked against the 255-character limit. Every page uses the same keys, so your hands learn it once.</p>
+  <div class="keys" aria-label="Modifier conventions">
+    <div class="k"><span class="cap">Click</span><span>Your target, or what's under your mouse</span></div>
+    <div class="k"><span class="cap">Shift</span><span>Your focus target</span></div>
+    <div class="k"><span class="cap">Alt</span><span>Yourself</span></div>
+    <div class="k"><span class="cap">Ctrl</span><span>Alternate spell or an extra cooldown</span></div>
+  </div>
+</header>
+<main class="wrap classes">
+<a class="cls" href="priest.html" style="--c-bg:#1c2330;--c-line:#2c3546;--c-ink:#ece6d6;--c-muted:#949cae;--c-accent:#d8b25c">
+  <h2><span class="glyph" aria-hidden="true">✶</span>Undead Priest</h2>
+  <p>Undercity-trained healer and shadow caster. Mouseover heals, focus dispels, and one key for every way out of crowd control.</p>
+  <div class="stats"><b>34</b> macros, 4 to check in-game</div>
+  <ul><li>Focus &amp; utility</li><li>Healing</li><li>Dispels</li><li>PvP control</li><li>PvP defensive</li><li>Damage</li><li>Talent &amp; spec</li></ul>
+  <span class="go">Open Undead Priest macros</span>
+</a>
+<a class="cls" href="warlock.html" style="--c-bg:#201829;--c-line:#33283f;--c-ink:#e9e2ee;--c-muted:#a095ae;--c-accent:#94d35a">
+  <h2><span class="glyph" aria-hidden="true">⛧</span>Orc Warlock</h2>
+  <p>Orgrimmar demon-binder. Every pet on one key, every curse on your focus, and Blood Fury that never sits idle.</p>
+  <div class="stats"><b>34</b> macros, 6 to check in-game</div>
+  <ul><li>Focus &amp; utility</li><li>Pets</li><li>Curses &amp; banes</li><li>Control</li><li>Damage (auto Blood Fury)</li><li>Sacrifice &amp; summon</li><li>Survival</li></ul>
+  <span class="go">Open Orc Warlock macros</span>
+</a>
+<a class="cls" href="druid.html" style="--c-bg:#1e2219;--c-line:#323828;--c-ink:#ece7d9;--c-muted:#9fa290;--c-accent:#f08a2c">
+  <h2><span class="glyph" aria-hidden="true">❦</span>Tauren Druid</h2>
+  <p>Thunder Bluff shapeshifter. Shift out of roots without leaving form, heal your focus from bear, and War Stomp on demand.</p>
+  <div class="stats"><b>36</b> macros, 7 to check in-game</div>
+  <ul><li>Focus &amp; utility</li><li>Healing</li><li>Dispels</li><li>Forms &amp; mobility</li><li>Feral</li><li>Control</li><li>Balance</li><li>PvP</li></ul>
+  <span class="go">Open Tauren Druid macros</span>
+</a>
+<a class="cls" href="mage.html" style="--c-bg:#182039;--c-line:#2a3556;--c-ink:#e6ecf7;--c-muted:#95a1bd;--c-accent:#6cc6f0">
+  <h2><span class="glyph" aria-hidden="true">✧</span>Orc Mage</h2>
+  <p>Orgrimmar battle-mage. Sheep and counterspell your focus without losing your target, with Blood Fury riding every nuke.</p>
+  <div class="stats"><b>27</b> macros, 5 to check in-game</div>
+  <ul><li>Focus &amp; utility</li><li>Control</li><li>Defensive</li><li>Damage (auto Blood Fury)</li><li>Burst &amp; AoE</li><li>Utility</li></ul>
+  <span class="go">Open Orc Mage macros</span>
+</a>
+</main>
+<footer><div class="wrap">
+  <p>Spell names come from the Forever beta (October 2026). Macros marked check in-game depend on a detail the beta hasn't settled.</p>
+  <p>Turn on the focus frame first: Esc → Edit Mode → Focus Frame.</p>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tauren Druid macros — WoW: Forever</title>
+<style>
+:root {
+  --bg: #151811; --panel: #1e2219; --line: #323828; --ink: #ece7d9; --muted: #9fa290;
+  --accent: #f08a2c; --accent-ink: #1c0e02; --warn: #e3a05b;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+header.hero { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
+.hero .switch { font-size: 14px; color: var(--muted); }
+.hero h1 { font: 600 clamp(40px, 7vw, 76px)/1.02 var(--serif); margin: 12px 0 10px; letter-spacing: -0.01em; }
+.hero h1 .glyph { color: var(--accent); font-weight: 400; margin-right: 0.2em; }
+.hero p.lede { max-width: 62ch; color: var(--muted); font-size: 18px; margin: 0 0 28px; }
+
+.keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.keys .k { display: flex; gap: 14px; align-items: center; }
+.cap { display: inline-block; min-width: 2.4em; padding: 0.15em 0.6em; border: 1px solid var(--line);
+  border-bottom-width: 3px; border-radius: 6px; background: var(--panel); font: 600 0.85em var(--sans);
+  text-align: center; white-space: nowrap; }
+.keys .cap { font-size: 20px; padding: 8px 14px; border-color: var(--accent); color: var(--accent); }
+.keys .k span:last-child { font-size: 15px; }
+.setup { margin: 26px 0 0; padding: 14px 18px; border-left: 3px solid var(--accent); background: var(--panel);
+  max-width: 80ch; font-size: 15px; }
+code { font: 0.9em var(--mono); }
+.setup ul { margin: 6px 0 0; padding-left: 18px; }
+
+.bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+.bar input { flex: 1 1 220px; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 12px; font: inherit; }
+.bar button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 14px; font: 500 14px var(--sans); cursor: pointer; }
+.bar button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.bar nav { display: flex; flex-wrap: wrap; gap: 4px 14px; width: 100%; font-size: 14px; }
+.bar nav a { color: var(--muted); text-decoration: none; }
+.bar nav a:hover { color: var(--accent); }
+
+section { padding: 36px 0 8px; scroll-margin-top: 120px; }
+section h2 { font: 600 30px/1.2 var(--serif); margin: 0 0 18px; }
+section h2 small { font: 400 15px var(--sans); color: var(--muted); margin-left: 10px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 18px; }
+
+article { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 10px; }
+article h3 { font: 600 20px/1.25 var(--serif); margin: 0; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-size: 12px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.pvp { color: #f0a5a5; border-color: #6b3a3a; }
+.tag.pve { color: #9fc4f0; border-color: #33506e; }
+.tag.talent { color: var(--accent); border-color: var(--accent); }
+article p { margin: 0; color: var(--muted); max-width: 70ch; }
+dl.mods { display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; margin: 2px 0; font-size: 14px; align-items: baseline; }
+dl.mods dt { margin: 0; } dl.mods dd { margin: 0; }
+.code { position: relative; }
+pre { margin: 0; background: rgba(0,0,0,0.35); border: 1px solid var(--line); border-radius: 8px;
+  padding: 14px 16px; font: 13.5px/1.6 var(--mono); white-space: pre-wrap; word-break: break-word; color: var(--ink); }
+.copy { position: absolute; top: 8px; right: 8px; background: var(--accent); color: var(--accent-ink); border: 0;
+  border-radius: 6px; padding: 5px 12px; font: 600 13px var(--sans); cursor: pointer; }
+.foot { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.count.over { color: #ff7b7b; font-weight: 600; }
+.status.ok { color: var(--accent); }
+.status.verify { color: var(--warn); }
+.note { font-size: 14px; border-left: 3px solid var(--warn); padding: 6px 12px; color: var(--ink); background: rgba(227,160,91,0.08); }
+.note.info { border-left-color: var(--line); background: transparent; color: var(--muted); }
+footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 48px; color: var(--muted); font-size: 14px; }
+.empty { color: var(--muted); padding: 40px 0; }
+@media (prefers-reduced-motion: no-preference) { .copy { transition: transform .12s; } .copy:active { transform: scale(.96); } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="switch"><a href="index.html">All characters</a>. Also: <a href="priest.html">Undead Priest</a>, <a href="warlock.html">Orc Warlock</a>, <a href="mage.html">Orc Mage</a></div>
+    <h1><span class="glyph" aria-hidden="true">❦</span>Tauren Druid</h1>
+    <p class="lede">Thunder Bluff shapeshifter. Shift out of roots without leaving form, heal your focus from bear, and War Stomp on demand.</p>
+    <div class="keys" aria-label="Modifier conventions">
+      <div class="k"><span class="cap">Click</span><span>Your target, or what's under your mouse</span></div>
+      <div class="k"><span class="cap">Shift</span><span>Your focus target</span></div>
+      <div class="k"><span class="cap">Alt</span><span>Yourself</span></div>
+      <div class="k"><span class="cap">Ctrl</span><span>Alternate spell or an extra cooldown</span></div>
+    </div>
+    <div class="setup">
+      Before you start:
+      <ul>
+        <li>Turn on the focus frame: Esc → Edit Mode → Focus Frame. Set focus with the <a href="#set-focus">Set focus</a> macro.</li>
+        <li>Put your PvP trinket in the top trinket slot (13). Macros use the slot, so they keep working when you upgrade it.</li>
+        <li>Paste into Esc → Macros, then pick the question-mark icon so the button shows the spell it will cast.</li>
+        <li>Shortcuts: spell names have no abbreviations, but commands do. <code>/spell</code> is <code>/cast</code>, <code>/tar</code> is <code>/target</code>, <code>/a</code> is <code>/assist</code>, <code>/script</code> is <code>/run</code>. Use them when a macro is near 255 characters. <code>/cast !Shadowform</code> never toggles a form off, and <code>/use item:12345</code> uses an item by ID if its name changes.</li>
+        <li>Spells and names are from the Forever beta (October 2026). Cards marked <em>check in-game</em> have one detail to confirm at launch.</li>
+      </ul>
+    </div>
+  </div>
+</header>
+<div class="bar">
+  <div class="wrap">
+    <input id="q" type="search" placeholder="Search macros or spells" aria-label="Search macros">
+    <button data-f="all" aria-pressed="true">All</button>
+    <button data-f="PvP" aria-pressed="false">PvP</button>
+    <button data-f="PvE" aria-pressed="false">PvE</button>
+    <button data-f="verify" aria-pressed="false">Check in-game</button>
+    <nav id="toc" aria-label="Sections"></nav>
+  </div>
+</div>
+<main class="wrap" id="main"></main>
+<footer><div class="wrap">Every macro is checked for the 255-character limit, valid commands and conditionals, and spell names from the Forever beta spellbook. Cards marked check in-game depend on something the beta hasn't settled.</div></footer>
+<script type="application/json" id="macro-data">{
+ "sections": [
+  "Focus & utility",
+  "Healing",
+  "Dispels",
+  "Forms & mobility",
+  "Feral",
+  "Control",
+  "Balance",
+  "PvP"
+ ],
+ "macros": [
+  {
+   "id": "set-focus",
+   "title": "Set focus",
+   "section": "Focus & utility",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "One button to manage your focus. Bind it somewhere easy — most of the other macros read from it.",
+   "mods": [
+    [
+     "Click",
+     "Focus your mouseover, else your target"
+    ],
+    [
+     "Shift",
+     "Target your focus"
+    ],
+    [
+     "Alt",
+     "Clear focus"
+    ]
+   ],
+   "text": "/clearfocus [mod:alt]\n/stopmacro [mod:alt]\n/target [mod:shift] focus\n/stopmacro [mod:shift]\n/focus [@mouseover,exists][]",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "assist-focus",
+   "title": "Assist focus",
+   "section": "Focus & utility",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Target whatever your focus is targeting. Focus your tank or a teammate and pick up their kill target.",
+   "mods": [
+    [
+     "Click",
+     "Take your focus's target"
+    ]
+   ],
+   "text": "/assist [@focus,exists]",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "healing-touch",
+   "title": "Healing Touch + Nature's Swiftness",
+   "section": "Healing",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Big heal. Ctrl pops Nature's Swiftness first (off the global cooldown) to make it instant: the classic PvP emergency heal.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ],
+    [
+     "Ctrl",
+     "Nature's Swiftness first"
+    ]
+   ],
+   "text": "#showtooltip Healing Touch\n/cast [mod:ctrl] Nature's Swiftness\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Healing Touch",
+   "status": "verify",
+   "note": "Nature's Swiftness wasn't in the Forever spell list the research found. If you don't have it, the Ctrl line is simply skipped."
+  },
+  {
+   "id": "regrowth",
+   "title": "Regrowth",
+   "section": "Healing",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Fast heal plus a HoT. Shift keeps your focus up.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Regrowth",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "rejuvenation",
+   "title": "Rejuvenation",
+   "section": "Healing",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Instant HoT for kiting and mouseover raid healing.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Rejuvenation",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "swiftmend",
+   "title": "Swiftmend",
+   "section": "Healing",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Baseline in Forever. Consumes a Rejuvenation or Regrowth for an instant heal.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Swiftmend",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "wild-growth",
+   "title": "Wild Growth",
+   "section": "Healing",
+   "tags": [
+    "PvE",
+    "Talent"
+   ],
+   "desc": "Restoration 31-point talent. Group HoT centred on your mouseover or focus.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Wild Growth",
+   "status": "verify",
+   "note": "New in Forever. Name taken from the beta talent tree."
+  },
+  {
+   "id": "innervate",
+   "title": "Innervate",
+   "section": "Healing",
+   "tags": [
+    "PvE",
+    "PvP"
+   ],
+   "desc": "Shift innervates your focus healer. Plain click goes to a friendly target, otherwise you.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Innervate",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "rebirth",
+   "title": "Rebirth / Revive",
+   "section": "Healing",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Combat resurrection on a dead mouseover, target or focus. Out of combat it casts the cheaper Revive instead.",
+   "mods": [
+    [
+     "Click",
+     "Dead mouseover, else dead target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Out of combat",
+     "Revive"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [nocombat,@focus,mod:shift,help,dead][nocombat,@mouseover,help,dead][nocombat,help,dead] Revive; [@focus,mod:shift,help,dead][@mouseover,help,dead][help,dead] Rebirth",
+   "status": "verify",
+   "note": "Revive is new baseline in Forever. Name taken from the beta spellbook."
+  },
+  {
+   "id": "buffs",
+   "title": "Buffs",
+   "section": "Healing",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Three buffs on one key. Casts on a friendly target, otherwise you. Here Shift and Ctrl choose the buff, not the focus.",
+   "mods": [
+    [
+     "Click",
+     "Mark of the Wild"
+    ],
+    [
+     "Shift",
+     "Thorns"
+    ],
+    [
+     "Ctrl",
+     "Gift of the Wild"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [mod:shift,help][mod:shift,@player] Thorns; [mod:ctrl,help][mod:ctrl,@player] Gift of the Wild; [help][@player] Mark of the Wild",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "remove-curse",
+   "title": "Remove Curse",
+   "section": "Dispels",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Shift decurses your focus. Strong against warlocks' Curse of Tongues and Exhaustion.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Remove Curse",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "abolish-poison",
+   "title": "Abolish Poison",
+   "section": "Dispels",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Removes a poison now and keeps cleansing for 8 seconds. Great against rogues.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else friendly target, else you"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ],
+    [
+     "Alt",
+     "You"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,help,nodead][@player,mod:alt][@mouseover,help,nodead][help,nodead][@player] Abolish Poison",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "form-heal",
+   "title": "Heal out of form",
+   "section": "Healing",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Drops any form and casts Regrowth in the same press. Shift heals your focus; Ctrl casts Rejuvenation instead.",
+   "mods": [
+    [
+     "Click",
+     "Regrowth on you"
+    ],
+    [
+     "Shift",
+     "On focus"
+    ],
+    [
+     "Ctrl",
+     "Rejuvenation"
+    ]
+   ],
+   "text": "#showtooltip\n/cancelform\n/cast [mod:ctrl,@focus,mod:shift,help][mod:ctrl,@player] Rejuvenation; [@focus,mod:shift,help,nodead][@player] Regrowth",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "cat",
+   "title": "Cat Form (powershift)",
+   "section": "Forms & mobility",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Shifts into Cat from anywhere. Pressing it again in Cat re-shifts and breaks roots and slows.",
+   "mods": [
+    [
+     "Click",
+     "Cat Form"
+    ]
+   ],
+   "text": "#showtooltip\n/cancelform\n/cast !Cat Form",
+   "status": "ok",
+   "note": "/cancelform leaves your current form first, so this also breaks roots and slows (a powershift). It costs the form's mana again."
+  },
+  {
+   "id": "bear",
+   "title": "Dire Bear Form (powershift)",
+   "section": "Forms & mobility",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Shifts into bear from anywhere; pressing again re-shifts to break roots and slows. Under level 40, change it to Bear Form.",
+   "mods": [
+    [
+     "Click",
+     "Dire Bear Form"
+    ]
+   ],
+   "text": "#showtooltip\n/cancelform\n/cast !Dire Bear Form",
+   "status": "verify",
+   "note": "Check that Dire Bear Form replaces Bear Form in your spellbook at level 40. /cancelform leaves your current form first, so this also breaks roots and slows (a powershift). It costs the form's mana again."
+  },
+  {
+   "id": "travel",
+   "title": "Travel Form (powershift)",
+   "section": "Forms & mobility",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Escape button. Breaks roots and slows on the way into Travel Form.",
+   "mods": [
+    [
+     "Click",
+     "Travel Form"
+    ]
+   ],
+   "text": "#showtooltip\n/cancelform\n/cast !Travel Form",
+   "status": "ok",
+   "note": "/cancelform leaves your current form first, so this also breaks roots and slows (a powershift). It costs the form's mana again."
+  },
+  {
+   "id": "moonkin",
+   "title": "Moonkin Form",
+   "section": "Forms & mobility",
+   "tags": [
+    "PvP",
+    "PvE",
+    "Talent"
+   ],
+   "desc": "The ! keeps a second press from dropping you out of Moonkin.",
+   "mods": [
+    [
+     "Click",
+     "Moonkin Form"
+    ]
+   ],
+   "text": "#showtooltip\n/cast !Moonkin Form",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "prowl",
+   "title": "Prowl / Dash",
+   "section": "Forms & mobility",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Prowl that never un-stealths you on a second press. Ctrl Dashes instead.",
+   "mods": [
+    [
+     "Click",
+     "Prowl"
+    ],
+    [
+     "Ctrl",
+     "Dash"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [mod:ctrl] Dash; !Prowl",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "cat-opener",
+   "title": "Cat opener / Shred",
+   "section": "Feral",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "From stealth it opens with Pounce (stun), or Ravage with Ctrl. Out of stealth it Shreds.",
+   "mods": [
+    [
+     "Stealthed",
+     "Pounce"
+    ],
+    [
+     "Stealthed + Ctrl",
+     "Ravage"
+    ],
+    [
+     "Otherwise",
+     "Shred"
+    ]
+   ],
+   "text": "#showtooltip\n/startattack\n/cast [stealth,mod:ctrl] Ravage; [stealth] Pounce; Shred",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "finisher",
+   "title": "Ferocious Bite / Rip",
+   "section": "Feral",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Finisher on one key. Ctrl uses Rip for long fights.",
+   "mods": [
+    [
+     "Click",
+     "Ferocious Bite"
+    ],
+    [
+     "Ctrl",
+     "Rip"
+    ]
+   ],
+   "text": "#showtooltip\n/startattack\n/cast [mod:ctrl] Rip; Ferocious Bite",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "rake-claw",
+   "title": "Rake / Claw",
+   "section": "Feral",
+   "tags": [
+    "PvE",
+    "PvP"
+   ],
+   "desc": "Bleed and builder on one key.",
+   "mods": [
+    [
+     "Click",
+     "Claw"
+    ],
+    [
+     "Ctrl",
+     "Rake"
+    ]
+   ],
+   "text": "#showtooltip\n/startattack\n/cast [mod:ctrl] Rake; Claw",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "feral-charge",
+   "title": "Feral Charge",
+   "section": "Feral",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "In bear it charges and interrupts; in cat it leaps behind the target. Shift charges your focus (an enemy healer).",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Feral Charge",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "bash",
+   "title": "Bash",
+   "section": "Feral",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Stun or interrupt your focus without changing targets.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Bash",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "faerie-fire",
+   "title": "Faerie Fire",
+   "section": "Feral",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Works in every form in Forever. Put it on your focus rogue so they can't restealth.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Faerie Fire",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "bear-threat",
+   "title": "Maul / Swipe / Lacerate",
+   "section": "Feral",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Bear threat on one key. Maul queues on your next swing.",
+   "mods": [
+    [
+     "Click",
+     "Maul"
+    ],
+    [
+     "Shift",
+     "Swipe"
+    ],
+    [
+     "Ctrl",
+     "Lacerate"
+    ]
+   ],
+   "text": "#showtooltip\n/startattack\n/cast [mod:shift] Swipe; [mod:ctrl] Lacerate; Maul",
+   "status": "verify",
+   "note": "Lacerate is new in Forever (level 42)."
+  },
+  {
+   "id": "growl",
+   "title": "Growl",
+   "section": "Feral",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "Taunt. Shift taunts the mob attacking your focus healer.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Growl",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "frenzied",
+   "title": "Frenzied Regeneration / Barkskin",
+   "section": "Feral",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Survival cooldowns. Barkskin works in forms in Forever.",
+   "mods": [
+    [
+     "Click",
+     "Frenzied Regeneration"
+    ],
+    [
+     "Shift",
+     "Barkskin"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [mod:shift] Barkskin; Frenzied Regeneration",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "cyclone",
+   "title": "Cyclone",
+   "section": "Control",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Baseline at level 48 in Forever. Cyclone the enemy healer on focus.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Cyclone",
+   "status": "verify",
+   "note": "New for Druids in Forever. Name taken from the beta spellbook."
+  },
+  {
+   "id": "roots",
+   "title": "Entangling Roots",
+   "section": "Control",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Now castable indoors. Root your focus while you heal or kite.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Entangling Roots",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "hibernate",
+   "title": "Hibernate",
+   "section": "Control",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Sleep beasts and dragonkin, including Hunter pets and Druids in forms. Shift re-sleeps your focus.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Hibernate",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "natures-grasp",
+   "title": "Nature's Grasp",
+   "section": "Control",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Baseline in Forever and usable in forms. Melee attackers get rooted.",
+   "mods": [
+    [
+     "Click",
+     "Nature's Grasp"
+    ]
+   ],
+   "text": "#showtooltip\n/cast Nature's Grasp",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "moonfire",
+   "title": "Moonfire",
+   "section": "Balance",
+   "tags": [
+    "PvP",
+    "PvE"
+   ],
+   "desc": "Instant DoT. Spread it on your focus or mouseover.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Moonfire",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "insect-swarm",
+   "title": "Insect Swarm",
+   "section": "Balance",
+   "tags": [
+    "PvP",
+    "PvE",
+    "Talent"
+   ],
+   "desc": "Balance talent in Forever. Lowers the target's hit chance.",
+   "mods": [
+    [
+     "Click",
+     "Mouseover, else target"
+    ],
+    [
+     "Shift",
+     "Focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [@focus,mod:shift,harm,nodead][@mouseover,harm,nodead][] Insect Swarm",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "wrath-starfire",
+   "title": "Wrath / Starfire",
+   "section": "Balance",
+   "tags": [
+    "PvE",
+    "PvP"
+   ],
+   "desc": "Nukes on one key. Click casts Wrath, Ctrl casts Starfire, Shift sends either at your focus.",
+   "mods": [
+    [
+     "Click",
+     "Wrath"
+    ],
+    [
+     "Ctrl",
+     "Starfire"
+    ],
+    [
+     "Shift",
+     "At focus"
+    ]
+   ],
+   "text": "#showtooltip\n/cast [mod:ctrl,@focus,mod:shift,harm][mod:ctrl] Starfire; [@focus,mod:shift,harm,nodead][] Wrath",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "hurricane",
+   "title": "Hurricane",
+   "section": "Balance",
+   "tags": [
+    "PvE"
+   ],
+   "desc": "No cooldown in Forever. Ground-targeted AoE.",
+   "mods": [
+    [
+     "Click",
+     "Hurricane"
+    ]
+   ],
+   "text": "#showtooltip\n/cast Hurricane",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "id": "war-stomp",
+   "title": "War Stomp / PvP trinket",
+   "section": "PvP",
+   "tags": [
+    "PvP"
+   ],
+   "desc": "Click War Stomps: a 2-second area stun, usable in any form. Shift uses the PvP trinket in slot 13. They're on separate cooldowns.",
+   "mods": [
+    [
+     "Click",
+     "War Stomp"
+    ],
+    [
+     "Shift",
+     "Trinket in slot 13"
+    ]
+   ],
+   "text": "#showtooltip\n/use [mod:shift] 13\n/cast [nomod] War Stomp",
+   "status": "verify",
+   "note": "Put your PvP trinket (Insignia of the Horde) in slot 13, or change 13 to 14."
+  }
+ ]
+}</script>
+<script>
+(function () {
+  const data = JSON.parse(document.getElementById('macro-data').textContent);
+  const main = document.getElementById('main');
+  const toc = document.getElementById('toc');
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  data.sections.forEach(name => {
+    const items = data.macros.filter(x => x.section === name);
+    const sec = el('section'); sec.id = 's-' + slug(name);
+    const h = el('h2', null, name); h.appendChild(el('small', null, items.length + (items.length === 1 ? ' macro' : ' macros')));
+    sec.appendChild(h);
+    const grid = el('div', 'grid');
+    items.forEach(x => grid.appendChild(card(x)));
+    sec.appendChild(grid); main.appendChild(sec);
+    const a = el('a', null, name); a.href = '#' + sec.id; toc.appendChild(a);
+  });
+  const empty = el('p', 'empty', 'No macros match. Clear the search or pick All.'); empty.hidden = true; main.appendChild(empty);
+
+  function card(x) {
+    const c = el('article'); c.id = x.id;
+    c.dataset.tags = x.tags.join(' ') + (x.status === 'verify' ? ' verify' : '');
+    c.dataset.search = (x.title + ' ' + x.desc + ' ' + x.text).toLowerCase();
+    c.appendChild(el('h3', null, x.title));
+    const tags = el('div', 'tags'); x.tags.forEach(t => tags.appendChild(el('span', 'tag ' + t.toLowerCase(), t))); c.appendChild(tags);
+    c.appendChild(el('p', null, x.desc));
+    const dl = el('dl', 'mods');
+    x.mods.forEach(([k, v]) => { const dt = el('dt'); dt.appendChild(el('span', 'cap', k)); dl.appendChild(dt); dl.appendChild(el('dd', null, v)); });
+    c.appendChild(dl);
+    const wrap = el('div', 'code'); const pre = el('pre', null, x.text); wrap.appendChild(pre);
+    const btn = el('button', 'copy', 'Copy'); btn.type = 'button'; btn.setAttribute('aria-label', 'Copy ' + x.title + ' macro');
+    btn.addEventListener('click', () => copy(x.text, btn)); wrap.appendChild(btn); c.appendChild(wrap);
+    if (x.note) c.appendChild(el('div', 'note' + (x.status === 'verify' ? '' : ' info'), x.note));
+    const foot = el('div', 'foot');
+    const n = x.text.length;
+    foot.appendChild(el('span', 'count' + (n > 255 ? ' over' : ''), n + ' / 255 characters'));
+    foot.appendChild(el('span', 'status ' + x.status, x.status === 'ok' ? 'Checked against the Forever spellbook' : 'Check in-game'));
+    c.appendChild(foot);
+    return c;
+  }
+
+  function copy(text, btn) {
+    const done = () => { btn.textContent = 'Copied'; setTimeout(() => (btn.textContent = 'Copy'), 1400); };
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done, fallback); } else fallback();
+    function fallback() {
+      const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Select the text and copy'; }
+      t.remove();
+    }
+  }
+
+  let filter = 'all';
+  const q = document.getElementById('q');
+  document.querySelectorAll('.bar button').forEach(b => b.addEventListener('click', () => {
+    filter = b.dataset.f;
+    document.querySelectorAll('.bar button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    apply();
+  }));
+  q.addEventListener('input', apply);
+  function apply() {
+    const term = q.value.trim().toLowerCase(); let shown = 0;
+    document.querySelectorAll('article').forEach(c => {
+      const ok = (filter === 'all' || c.dataset.tags.split(' ').includes(filter)) && (!term || c.dataset.search.includes(term));
+      c.hidden = !ok; if (ok) shown++;
+    });
+    document.querySelectorAll('section').forEach(s => { s.hidden = !s.querySelector('article:not([hidden])'); });
+    empty.hidden = shown > 0;
+  }
+})();
+</script>
+</body>
+</html>
